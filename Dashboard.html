@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="Dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Report Dashboard</h1>
+        
+        <!-- Section for Number of Devices -->
+        <div class="report-section">
+            <div class="card" id="deviceCard">
+                <div>Number of Devices</div>
+                <div class="chart-container">
+                    <canvas id="deviceChart"></canvas>
+                    <div class="line-indicator">120</div>
+                </div>
+                <button class="more-info" onclick="openModal('deviceModal')">More Info</button>
+            </div>
+
+            <!-- Section for Borrow-return Equipment -->
+            <div class="card" id="borrowReturnCard">
+                <div>Borrow-Return Equipment</div>
+                <div class="chart-container">
+                    <canvas id="borrowReturnChart"></canvas>
+                    <div class="line-indicator">40</div>
+                </div>
+                <button class="more-info" onclick="openModal('borrowReturnModal')">More Info</button>
+            </div>
+        </div>
+
+        <!-- Modal for Number of Devices -->
+        <div id="deviceModal" class="modal">
+            <div class="modal-content">
+                <span class="modal-close" onclick="closeModal('deviceModal')">&times;</span>
+                <h2>Number of Devices - Details</h2>
+                <p>Here you can add detailed information about the number of devices.</p>
+                <!-- Additional details or graphs can be added here -->
+            </div>
+        </div>
+
+        <!-- Modal for Borrow-return Equipment -->
+        <div id="borrowReturnModal" class="modal">
+            <div class="modal-content">
+                <span class="modal-close" onclick="closeModal('borrowReturnModal')">&times;</span>
+                <h2>Borrow-Return Equipment - Details</h2>
+                <p>Here you can add detailed information about borrow-return equipment.</p>
+                <!-- Additional details or graphs can be added here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data for Number of Devices Chart
+        const deviceChart = document.getElementById('deviceChart').getContext('2d');
+        new Chart(deviceChart, {
+            type: 'bar',
+            data: {
+                labels: ['Laptops', 'Projectors', 'Cameras', 'Other'],
+                datasets: [{
+                    label: 'Number of Devices',
+                    data: [50, 20, 30, 20],
+                    backgroundColor: '#FF6384',
+                    borderColor: '#FF6384',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: 60
+                    },
+                    x: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Data for Borrow-Return Equipment Chart
+        const borrowReturnChart = document.getElementById('borrowReturnChart').getContext('2d');
+        new Chart(borrowReturnChart, {
+            type: 'bar',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                datasets: [{
+                    label: 'Borrowed',
+                    data: [15, 20, 35, 40, 25, 30],
+                    backgroundColor: '#007BFF',
+                    borderColor: '#007BFF',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Returned',
+                    data: [10, 25, 30, 35, 20, 25],
+                    backgroundColor: '#4CAF50',
+                    borderColor: '#4CAF50',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: 50
+                    },
+                    x: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Function to open modal
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        // Function to close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
