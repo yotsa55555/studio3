@@ -1,0 +1,125 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Borrowing System</title>
+    <link rel="stylesheet" href="{% static 'homecss.css' %}"> <!-- Use Django's static tag -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        nav a {
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        nav button {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .register-btn {
+            background-color: #ff0000;
+            color: white;
+        }
+
+        .login-btn {
+            background-color: #ff0000;
+            color: white;
+        }
+
+        .welcome {
+            position: relative;
+            background-image: url('https://media.cntraveler.com/photos/57211a96fe5fd76f60bc2764/16:9/w_2580,c_limit/deserts-Sahara-cr-GettyImages-74732427.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 650px;
+            width: 400;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .welcome-text {
+            text-align: center;
+            color: white;
+        }
+
+        .welcome-text h2 {
+            font-size: 36px;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .get-starts-btn {
+            margin-top: 20px;
+            padding: 10px 30px;
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>BLF</h1>
+        </div>
+        <nav>
+            <!-- Use Django's url template tags for navigation -->
+            <a href="{% url 'register' %}">
+                <button class="register-btn">Register</button>
+            </a>
+            <a href="{% url 'login' %}">
+                <button class="login-btn">Log in</button>
+            </a>
+        </nav>
+    </header>
+    <section class="welcome">
+        <div class="welcome-text">
+            <h2>Welcome to Desert</h2>
+            <h3>Equipment Borrowing System for Laboratory Facilities</h3>
+        </div>
+    </section>
+</body>
+
+</html>
