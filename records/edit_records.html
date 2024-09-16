@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Record</title>
+    <style>
+        /* General body styles */
+        body {
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container for the form */
+        .edit-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form title */
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        /* Input fields */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Submit button */
+        .btn-save {
+            width: 95%;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+        }
+        .btn-save:hover {
+            background-color: #555;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            .edit-container {
+                margin: 50px 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="edit-container">
+        <h1>Edit Record</h1>
+        <form>
+            <div class="form-group">
+                <label for="firstName">First name</label>
+                <input type="text" id="firstName" placeholder="First name..." required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input type="text" id="lastName" placeholder="Last name..." required>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone number</label>
+                <input type="text" id="phoneNumber" placeholder="Phone number..." required>
+            </div>
+            <a href="records.html" class="btn-save">Save Change</a>
+        </form>
+    </div>
+
+</body>
+</html>
