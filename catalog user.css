@@ -4,6 +4,82 @@ body {
     padding: 0;
     background-color: #f4f4f4;
 }
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #ffffff;
+}
+
+.logo {
+    display: flex;
+    align-items: left;
+}
+
+.logo img {
+    width: 200px;
+    height: auto;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: rgb(7, 7, 7);
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #000000;
+
+    
+}
+
+a [href*="Catalog"] {
+    position: relative; /* ทำให้สามารถใช้ pseudo-elements */
+    padding-bottom: 5px; /* เว้นช่องใต้ข้อความ */
+}
+
+a[href*="Catalog"]::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px; /* ปรับความสูงของเส้น */
+    background-color: red; /* สีแดง */
+}
+
+.logout-btn {
+    background-color: #ff3333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+.logout-btn:hover {
+    background-color: #e60000;
+}
+
+
+
+
 
 h1 {
     text-align: center;
