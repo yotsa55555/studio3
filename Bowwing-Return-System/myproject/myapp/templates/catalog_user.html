@@ -1,25 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalog for Borrowing</title>
-    <link rel="stylesheet" href="catalog user.css">
+    <link rel="stylesheet" href="{% static 'catalog_user.css' %}">
 </head>
-<body>
-    <header>
-        <div class="logo">
-            <img src="Logo.png" alt="Logo">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">HOME</a></li>
-                <li><a href="#">CATALOG</a></li>
-                <button id="logout-btn" class="logout-btn">Logout</button>
-            </ul>
-        </nav>
-    </header>
 
+<body>
     <div class="container">
         <h1>Catalog for Borrowing</h1>
         <header>
@@ -32,7 +22,8 @@
                     <option value="damaged">Damaged</option>
                 </select>
             </div>
-            <button id="request-button">Request</button>
+            <button id="request-button" onclick="window.location.href='{% url 'borrow_request' %}'">Borrowing</button>
+
         </header>
 
         <table>
@@ -50,7 +41,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><img src="VR glasses.jpg" alt="VR Glasses"></td>
+                    <td><img src="{% static 'images/VR_glasses.jpg' %}" alt="VR Glasses"></td>
                     <td>VR Glasses</td>
                     <td>123456</td>
                     <td>Brand A</td>
@@ -60,7 +51,7 @@
                     <td><span class="status available">Available</span></td>
                 </tr>
                 <tr>
-                    <td><img src="pen mouse.jpg" alt="Pen Mouse"></td>
+                    <td><img src="{% static 'images/pen_mouse.jpg' %}" alt="Pen Mouse"></td>
                     <td>Pen Mouse</td>
                     <td>654321</td>
                     <td>Brand B</td>
@@ -73,4 +64,5 @@
         </table>
     </div>
 </body>
+
 </html>
