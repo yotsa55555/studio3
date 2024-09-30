@@ -1,0 +1,22 @@
+<h2>Your Records</h2>
+<ul>
+    {% for record in user_records %}
+    <li>{{ record.first_name }} {{ record.last_name }} - {{ record.mobile }} 
+        <a href="{% url 'edit-record' record.pk %}">Edit</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<h2>All Records</h2>
+<ul>
+    {% for record in all_records %}
+    <li>{{ record.first_name }} {{ record.last_name }} - {{ record.mobile }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Add New Record</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Record</button>
+</form>
