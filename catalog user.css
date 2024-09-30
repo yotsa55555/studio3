@@ -43,24 +43,29 @@ nav ul li a {
 
 nav ul li a:hover {
     color: #000000;
-
     
 }
 
-a [href*="Catalog"] {
-    position: relative; /* ทำให้สามารถใช้ pseudo-elements */
+/* สำหรับเส้นขีดใต้ปุ่ม Catalog เมื่อถูกกดหรืออยู่ในสถานะ active */
+nav ul li a:focus, 
+nav ul li a:active {
+    position: relative; /* ใช้สำหรับ pseudo-elements */
     padding-bottom: 5px; /* เว้นช่องใต้ข้อความ */
+    outline: none; /* ลบเส้นกรอบเมื่อคลิก */
 }
 
-a[href*="Catalog"]::after {
+nav ul li a:focus::after, 
+nav ul li a:active::after {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    height: 3px; /* ปรับความสูงของเส้น */
+    height: 3px; /* ความหนาของเส้น */
     background-color: red; /* สีแดง */
 }
+
+
 
 .logout-btn {
     background-color: #ff3333;
@@ -76,8 +81,6 @@ a[href*="Catalog"]::after {
 .logout-btn:hover {
     background-color: #e60000;
 }
-
-
 
 
 
