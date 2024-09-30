@@ -1,14 +1,35 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    {% block title %} home {% endblock %}
+    <title>Equipment Borrowing System</title>
+    <link rel="stylesheet" href="{% static 'homecss.css' %}">
 </head>
 
 <body>
+    <header>
+        <div>
+            <h1>BLF</h1>
+        </div>
+        <nav>
+            <a href="{% url 'registor' %}">
+                <button class="register-btn">Register</button>
+            </a>
+            <a href="{% url 'login' %}">
+                <button class="login-btn">Log in</button>
+            </a>
+        </nav>
+    </header>
+    <section class="welcome">
+        <div class="welcome-text">
+            <h2>Welcome to Desert</h2>
+            <h3>Equipment Borrowing System for Laboratory Facilities</h3>
+            <button class="get-starts-btn" onclick="window.location.href='{% url 'catalog_user' %}'">Get Starts</button>
+        </div>
+    </section>
 </body>
+
 </html>

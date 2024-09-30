@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog for Borrowing</title>
+    <link rel="stylesheet" href="{% static 'catalog_user.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Catalog for Borrowing</h1>
+        <header>
+            <div class="header-left">
+                <input type="text" placeholder="Search..." id="search-bar">
+                <select id="status-dropdown">
+                    <option value="all">All</option>
+                    <option value="available">Available</option>
+                    <option value="unavailable">Unavailable</option>
+                    <option value="damaged">Damaged</option>
+                </select>
+            </div>
+            <button id="request-button" onclick="window.location.href='{% url 'borrow_request' %}'">Borrowing</button>
+
+        </header>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Picture</th>
+                    <th>Equipment Name</th>
+                    <th>Parcel ID</th>
+                    <th>Brand</th>
+                    <th>Date Borrow</th>
+                    <th>Date Return</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img src="{% static 'images/VR_glasses.jpg' %}" alt="VR Glasses"></td>
+                    <td>VR Glasses</td>
+                    <td>123456</td>
+                    <td>Brand A</td>
+                    <td>2024-08-01</td>
+                    <td>2024-08-10</td>
+                    <td>2024-08-15</td>
+                    <td><span class="status available">Available</span></td>
+                </tr>
+                <tr>
+                    <td><img src="{% static 'images/pen_mouse.jpg' %}" alt="Pen Mouse"></td>
+                    <td>Pen Mouse</td>
+                    <td>654321</td>
+                    <td>Brand B</td>
+                    <td>2024-08-05</td>
+                    <td>2024-08-15</td>
+                    <td>2024-08-20</td>
+                    <td><span class="status unavailable">Unavailable</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
