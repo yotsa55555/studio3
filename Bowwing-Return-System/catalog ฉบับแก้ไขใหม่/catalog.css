@@ -21,11 +21,7 @@ header {
 .logo img {
     width: 100px; 
     height: auto; 
-    /* <<<<<<< HEAD */
     margin-right: 10px; 
-    /* ======= */
-    margin-right: 10px; /* ระยะห่างระหว่างโลโก้และตัวอักษร */
-    /* >>>>>>> 22df7210c86f8678bfcd1050783e6b37d7d52a21 */
 }
 
 .logo-letters {
@@ -154,7 +150,6 @@ h1 {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    text-decoration: none;
 }
 
 #request-button:hover {
