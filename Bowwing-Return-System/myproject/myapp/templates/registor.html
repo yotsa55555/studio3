@@ -11,37 +11,38 @@
   <div class="container">
     <div class="title">Registration</div>
     <div class="content">
-      <form action="#">
+      <form action="" method="post">
+        {% csrf_token %}
         <div class="user-details">
           <div class="input-box">
             <span class="details">Full Name</span>
-            <input type="text" placeholder="Enter your name" required>
+            <input type="text" name="fullname" placeholder="Enter your name" required>
           </div>
           <div class="input-box">
             <span class="details">Username</span>
-            <input type="text" placeholder="Enter your username" required>
+            <input type="text" name="username" placeholder="Enter your username" required>
           </div>
           <div class="input-box">
             <span class="details">Kkumail</span>
-            <input type="text" placeholder="Enter your Kkumail" required>
+            <input type="text" name="kkumail" placeholder="Enter your Kkumail" required>
           </div>
           <div class="input-box">
             <span class="details">Phone Number</span>
-            <input type="text" placeholder="Enter your number" required>
+            <input type="text" name="phone" placeholder="Enter your number" required>
           </div>
           <div class="input-box">
             <span class="details">Password</span>
-            <input type="text" placeholder="Enter your password" required>
+            <input type="text" name="password" placeholder="Enter your password" required>
           </div>
           <div class="input-box">
             <span class="details">Student ID</span>
-            <input type="text" placeholder="Student ID" required>
+            <input type="text" name="student_id_edu" placeholder="Student ID" required>
           </div>
         </div>
         <div class="Major-details">
-          <input type="radio" name="Major" id="dot-1">
-          <input type="radio" name="Major" id="dot-2">
-          <input type="radio" name="Major" id="dot-3">
+          <input type="radio" name="Major" value="DME" id="dot-1">
+          <input type="radio" name="Major" value="CoE" id="dot-2">
+          <input type="radio" name="Major" value="Other" id="dot-3">
           <span class="Major-title">Major</span>
           <div class="category">
             <label for="dot-1">

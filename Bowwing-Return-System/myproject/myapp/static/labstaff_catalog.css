@@ -150,7 +150,6 @@ h1 {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    text-decoration: none;
 }
 
 #request-button:hover {

@@ -1,17 +1,44 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalog for Borrowing</title>
-    <link rel="stylesheet" href="catalog labstaff.css">
+    <link rel="stylesheet" href="{% static 'labstaff_catalog.css' %}">  
 </head>
-<body>
+
+<body>  
+    <header>
+
+        <div class="logo">
+            <img src="{% static 'logo_empty.png' %}" alt="Logo">
+            <div class="text-content">
+                <span class="logo-letters">B <span class="red-letter">L</span> F</span>
+                <div class="logo-subtext">Equipment borrowing</div>
+                <div class="logo-subtext">System for Laboratory</div>
+                <div class="logo-subtext">Facilities</div>
+            </div>
+        </div>
+        
+        
+        <nav>
+            <ul>
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">CATALOG</a></li>
+                <li><a href="#">APPROVAL</a></li>
+                <li><a href="#">HISTORY</a></li>
+                <button id="logout-btn" class="logout-btn">Logout</button>
+            </ul>
+        </nav>
+    </header>
+
     <div class="container">
         <h1>Catalog for Borrowing</h1>
         <header>
             <div class="header-left">
                 <input type="text" placeholder="Search..." id="search-bar">
+                <span>Status: </span>
                 <select id="status-dropdown">
                     <option value="all">All</option>
                     <option value="available">Available</option>
@@ -19,7 +46,7 @@
                     <option value="damaged">Damaged</option>
                 </select>
             </div>
-            <button id="approval-button">Approval</button>
+            <button id="request-button" href="{% url 'borrow_request' %}">Borrowing</button>
         </header>
 
         <table>
@@ -70,6 +97,7 @@
                 </tr>
             </tbody>
         </table>
+      </table>
     </div>
 </body>
 </html>
