@@ -80,7 +80,23 @@ def catalog_user(request):
 
 
 def catalog_staff(request):
-    return render(request, "catalog labstaff.html")
+    all_equipment = Equipment.objects.all()
+    all_status = Status.objects.all()
+    selected_status = request.POST.get('filter')
+    print(selected_status)
+    if selected_status:
+        if selected_status == "Unavailable":
+            all_equipment = Equipment.objects.filter(status = True)
+        elif selected_status == "Available":
+            all_equipment = Equipment.objects.filter(status = False)
+        else:
+            all_equipment = Equipment.objects.all()
+            
+    return render(request, "catalog labstaff.html", {
+        "all_equipment": all_equipment,
+        "all_status": all_status,
+        "selected_status": selected_status,
+        })
 
 def catalog_admin(request):
     return render(request, "catalog admin.html")

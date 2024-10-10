@@ -41,6 +41,7 @@ class Equipment(models.Model):
     status = models.BooleanField(default=False)
     date_borrow = models.DateField(null=True, blank=True, help_text="Date when the item was borrowed")
     date_return = models.DateField(null=True, blank=True, help_text="Date when the item is returned")
+    borrower = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         constraints = [
@@ -49,10 +50,11 @@ class Equipment(models.Model):
 
     def clean(self):
         if self.status:
-            if not self.date_borrow or not self.date_return:
+            if not self.date_borrow or not self.date_return or not self.borrower:
                 raise ValidationError("Both borrow and return dates are required when status is True.")
             if self.date_borrow > self.date_return:
                 raise ValidationError("Borrow date cannot be after return date.")
         else:
             self.date_borrow = None
             self.date_return = None
+            self.borrower = None

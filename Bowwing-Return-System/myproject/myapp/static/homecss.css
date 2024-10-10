@@ -10,24 +10,6 @@ body {
 
 header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #ffffff;
-}
-
-.logo {
-    display: flex;
-    align-items: left;
-}
-
-.logo img {
-    width: 200px;
-    height: auto;
-}
-
-header {
-    display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
@@ -69,24 +51,24 @@ nav button {
     color: white;
 }
 
-.Equipment {
+.welcome {
     position: relative;
     background-image: url('https://media.cntraveler.com/photos/57211a96fe5fd76f60bc2764/16:9/w_2580,c_limit/deserts-Sahara-cr-GettyImages-74732427.jpg');
     background-size: cover;
     background-position: center;
     height: 650px;
+    width: 400;
     display: flex;
-    justify-content: flex-end; /* Align content to the right */
+    justify-content: center;
     align-items: center;
 }
 
-.Equipment-text {
-    text-align: right;
-    color: black;
-    margin-right: 150px;
+.welcome-text {
+    text-align: center;
+    color: white;
 }
 
-.Equipment-text h2 {
+.welcome-text h2 {
     font-size: 36px;
     font-weight: bold;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
@@ -94,13 +76,11 @@ nav button {
 
 .get-starts-btn {
     margin-top: 20px;
-    padding: 10px 10px;
+    padding: 10px 30px;
     background-color: #ffffff;
     color: rgb(0, 0, 0);
-    border: 1px solid black; 
+    border: none;
     cursor: pointer;
     font-size: 18px;
-    border-radius: 50px; 
+    border-radius: 5px;
 }
-
-
