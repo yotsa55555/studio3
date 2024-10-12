@@ -11,8 +11,14 @@
 
 <body>
     <header>
-        <div>
-            <h1>BLF</h1>
+        <div class="logo">
+            <img src="{% static 'images/logo_empty.png' %}" alt="Logo">
+            <div class="text-content">
+                <span class="logo-letters">B <span class="red-letter">L</span> F</span>
+                <div class="logo-subtext">Equipment borrowing</div>
+                <div class="logo-subtext">System for Laboratory</div>
+                <div class="logo-subtext">Facilities</div>
+            </div>
         </div>
         <nav>
             <ul>
@@ -24,6 +30,7 @@
                     {% csrf_token %}
                     <button type="submit" id="logout-btn" class="logout-btn">Logout</button>
                 </form>
+        
             </ul>
         </nav>
     </header>
