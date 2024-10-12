@@ -117,16 +117,10 @@ def catalog_staff(request):
 def catalog_admin(request):
     return render(request, "admin/catalog admin.html")
 
-def borrow_view(request):
-    form = BorrowingForm()
+def borrow_view(request, equipment_id):
+    equipment = Equipment.objects.get(equipment_id=equipment_id)
 
-    # Pass all products as context for filtering in the frontend
-    products = Equipment.objects.all()
-
-    return render(request, 'user/borrow_user.html', {
-        'form': form,
-        'products': products
-    })
+    return render(request, 'user/borrow_user.html', {"equipment": equipment})
 
 def home_staff(request):
     return render(request, "staff/home_staff.html")

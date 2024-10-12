@@ -47,21 +47,12 @@
                     {% csrf_token %}
                     <span>Status: </span>
                     <select id="status-dropdown" name="filter" onchange="this.form.submit();">
-                        <!-- <option value="all">All</option>
-                        <option value="available">Available</option>
-                        <option value="unavailable">Unavailable</option>
-                        <option value="damaged">Damaged</option> -->
-                        {% for status in all_status %}
-                            <option value="{{ status.name }}">
-                                {{ status.name }}
-                            </option>
-                        {% endfor %}
+                        <option value="">All</option>
+                        <option value="Available" {% if selected_status == 'Available' %}selected{% endif %}>Available</option>
+                        <option value="Unavailable" {% if selected_status == 'Unavailable' %}selected{% endif %}>Unavailable</option>
                     </select>
                 </form>
             </div>
-            <form action="{% url 'borrow_request' %}" method="get">
-                <button id="request-button" type="submit">Borrowing</button>
-            </form>
         </header>
 
         <table>
@@ -102,12 +93,10 @@
                         </td>
                         <td>
                             {% if equipment.status %}
-                                <form action="{% url 'borrow_request' %}" method="get">
-                                    <button id="disabled-button" type="submit" disabled>Borrow</button>
-                                </form>
+                                <button id="disabled-button" type="submit" disabled>Borrow</button>
 
                             {% else %}
-                                <form action="{% url 'borrow_request' %}" method="get">
+                                <form action="{% url 'borrow_request' equipment.equipment_id %}" method="get">
                                     <button id="request-button" type="submit">Borrow</button>
                                 </form>
                             
@@ -125,6 +114,11 @@
                     </tr>
                 {% endfor %}
             </tbody>
+            <script>
+                function navigateToBorrow(equiment_id) {
+                    window.location.href = '/user_borrowing/' + equiment_id ;
+                }
+            </script>
         </table>
     </div>
 </body>

@@ -27,28 +27,13 @@
         <fieldset>
             <legend>Borrowing</legend>
             <label for="id_name" class="form-label">Equipment name: </label>
-            <select id="id_name">
-                <option value="">-- Select --</option>
-                {% for product in products %}
-                  <option value="{{ product.name }}">{{ product.name }}</option>
-                {% endfor %}
-            </select>
+            <input type="text" value="{{ equipment.name }}" disabled></input>
 
             <label for="id_parcel_id" class="form-label">Parcel ID: </label>
-            <select id="product_id">
-                <option value="">-- Select --</option>
-                {% for product in products %}
-                  <option value="{{ product.parcel_id }}">{{ product.parcel_id }}</option>
-                {% endfor %}
-            </select>
+            <input type="text" value="{{ equipment.parcel_id }}" disabled></input>
             
             <label for="id_brand" class="form-label">Brand: </label>
-            <select id="brand">
-                <option value="">-- Select --</option>
-                {% for product in products %}
-                  <option value="{{ product.brand }}">{{ product.brand }}</option>
-                {% endfor %}
-            </select>
+            <input type="text" value="{{ equipment.brand }}" disabled></input>
 
             <p>
                 <label for="date">Borrowing date</label>
