@@ -157,6 +157,16 @@ h1 {
     text-decoration: none;
 }
 
+#disabled-button {
+    padding: 8px 12px;
+    background-color: #bdbcbc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
 #request-button:hover {
     background-color: #45a049;
 }

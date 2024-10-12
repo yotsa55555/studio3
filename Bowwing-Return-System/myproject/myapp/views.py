@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from myapp.models import Student, Staff, Admin, Equipment, Status
+from .borrowing import BorrowingForm
 
 def home(request):
     all_student = Student.objects.all()
@@ -102,4 +103,12 @@ def catalog_admin(request):
     return render(request, "catalog admin.html")
 
 def borrow_view(request):
-    return render(request, "borrow_user.html")
+    form = BorrowingForm()
+
+    # Pass all products as context for filtering in the frontend
+    products = Equipment.objects.all()
+
+    return render(request, 'borrow_user.html', {
+        'form': form,
+        'products': products
+    })
