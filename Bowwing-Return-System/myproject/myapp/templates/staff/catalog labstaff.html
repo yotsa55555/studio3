@@ -39,7 +39,11 @@
         <h1>Catalog for Borrowing</h1>
         <header>
             <div class="header-left">
-                <input type="text" placeholder="Search..." id="search-bar">
+                <form action="" method="get"> 
+                    <input type="text" placeholder="Search..." id="search-bar" name="q" value="{{ request.GET.q|default_if_none:'' }}"
+                        onkeydown="if(event.key === 'Enter'){ this.form.submit(); }">
+                </form>
+
                 <form action="" method="post">
                     {% csrf_token %}
                     <span>Status: </span>

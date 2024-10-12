@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from myapp.models import Student, Staff, Admin, Equipment, Status
 from .borrowing import BorrowingForm
+from django.db.models import Q
 
 def home(request):
     all_student = Student.objects.all()
@@ -64,7 +65,14 @@ def catalog_user(request):
     all_equipment = Equipment.objects.all()
     all_status = Status.objects.all()
     selected_status = request.POST.get('filter')
+    query = request.GET.get("q")
     print(selected_status)
+    if query:
+        all_equipment = all_equipment.filter(
+            Q(name__icontains=query)
+            | Q(brand__icontains=query)
+            | Q(parcel_id__icontains=query)
+        )
     if selected_status:
         if selected_status == "Unavailable":
             all_equipment = Equipment.objects.filter(status = True)
@@ -72,7 +80,7 @@ def catalog_user(request):
             all_equipment = Equipment.objects.filter(status = False)
         else:
             all_equipment = Equipment.objects.all()
-            
+
     return render(request, "user/catalog_user.html", {
         "all_equipment": all_equipment,
         "all_status": all_status,
@@ -84,7 +92,14 @@ def catalog_staff(request):
     all_equipment = Equipment.objects.all()
     all_status = Status.objects.all()
     selected_status = request.POST.get('filter')
+    query = request.GET.get("q")
     print(selected_status)
+    if query:
+        all_equipment = all_equipment.filter(
+            Q(name__icontains=query)
+            | Q(brand__icontains=query)
+            | Q(parcel_id__icontains=query)
+        )
     if selected_status:
         if selected_status == "Unavailable":
             all_equipment = Equipment.objects.filter(status = True)
@@ -92,7 +107,7 @@ def catalog_staff(request):
             all_equipment = Equipment.objects.filter(status = False)
         else:
             all_equipment = Equipment.objects.all()
-            
+
     return render(request, "staff/catalog labstaff.html", {
         "all_equipment": all_equipment,
         "all_status": all_status,
