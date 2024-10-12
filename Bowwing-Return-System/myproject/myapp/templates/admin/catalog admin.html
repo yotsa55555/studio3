@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Device Management</title>
-    <link rel="stylesheet" href="catalog admin.css">
+    <link rel="stylesheet" href="{% static 'catalog admin.css' %}">
     
 </head>
 <body>
@@ -14,10 +15,10 @@
         <a href="{% url 'home_admin' %}" class="edit-btn">HOME</a>
         <a href="{% url 'catalog_admin' %}" class="edit-btn">CATALOG</a>
         <a href="{% url 'report_admin' %}" class="edit-btn">REPORT</a>
-        <a href="#" class="edit-btn">HISTORY</a>
+        <a href="{% url 'history_admin' %}" class="edit-btn">HISTORY</a>
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
-            <button type="submit" id="logout-btn" class="logout-btn">Logout</button>
+            <button type="submit" id="logout-btn" class="edit-btn">Logout</button>
         </form>
 
         <div class="btn-container">

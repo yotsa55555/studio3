@@ -11,7 +11,22 @@
 
 <body>
     <div class="container">
-        <h2>Request</h2>
+
+        <nav>
+            <ul>
+                <li><a href="{% url 'home_staff' %}">HOME</a></li>
+                <li><a href="{% url 'catalog_staff' %}">CATALOG</a></li>
+                <li><a href="{% url 'approval_staff' %}">APPROVAL</a></li>
+                <li><a href="{% url 'history_staff' %}">HISTORY</a></li>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" id="logout-btn" class="logout-btn">Logout</button>
+                </form>
+        
+            </ul>
+        </nav>
+
+        <h2>APPROVAL</h2>
         <table>
             <thead>
                 <tr>

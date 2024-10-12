@@ -15,19 +15,23 @@
             <h1>BLF</h1>
         </div>
         <nav>
-            <a href="{% url 'registor' %}">
-                <button class="register-btn">Register</button>
+            <a href="{% url 'home_user' %}">
+                <button class="register-btn">Home</button>
             </a>
-            <a href="{% url 'login' %}">
-                <button class="login-btn">Log in</button>
+            <a href="{% url 'catalog_user' %}">
+                <button class="register-btn">CATALOG</button>
             </a>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" id="logout-btn" class="logout-btn">Logout</button>
+            </form>
         </nav>
     </header>
     <section class="welcome">
         <div class="welcome-text">
             <h2>Welcome to Desert</h2>
             <h3>Equipment Borrowing System for Laboratory Facilities</h3>
-            <a href="{% url 'login' %}">
+            <a href="{% url 'catalog_user' %}">
                 <button class="get-starts-btn">Get Starts</button>
             </a>
         </div>

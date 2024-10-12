@@ -133,3 +133,6 @@ def home_admin(request):
 
 def report_admin(request):
     return render(request, "admin/Dashboard.html")
+
+def history_admin(request):
+    return render(request, "admin/history_admin.html")

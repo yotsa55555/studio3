@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,24 +9,19 @@
     <link rel="stylesheet" href="{% static 'borrowing status.css' %}">
 
 </head>
+
 <body>
     <div class="container">
+        <a href="{% url 'home_admin' %}" class="edit-btn">HOME</a>
+        <a href="{% url 'catalog_admin' %}" class="edit-btn">CATALOG</a>
+        <a href="{% url 'report_admin' %}" class="edit-btn">REPORT</a>
+        <a href="{% url 'history_admin' %}" class="edit-btn">HISTORY</a>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" id="logout-btn" class="edit-btn">Logout</button>
+        </form>
 
-        <nav>
-            <ul>
-                <li><a href="{% url 'home_staff' %}">HOME</a></li>
-                <li><a href="{% url 'catalog_staff' %}">CATALOG</a></li>
-                <li><a href="{% url 'approval_staff' %}">APPROVAL</a></li>
-                <li><a href="{% url 'history_staff' %}">HISTORY</a></li>
-                <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" id="logout-btn" class="logout-btn">Logout</button>
-                </form>
-        
-            </ul>
-        </nav>
-
-        <h1>History</h1>
+        <h1>HISTORY</h1>
         <table>
             <thead>
                 <tr>
@@ -88,4 +84,5 @@
         </table>
     </div>
 </body>
+
 </html>
