@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Borrowing System</title>
+    <link rel="stylesheet" href="{% static 'homecss.css' %}">
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>BLF</h1>
+        </div>
+        <nav>
+            <a href="{% url 'registor' %}">
+                <button class="register-btn">Register</button>
+            </a>
+            <a href="{% url 'login' %}">
+                <button class="login-btn">Log in</button>
+            </a>
+        </nav>
+    </header>
+    <section class="welcome">
+        <div class="welcome-text">
+            <h2>Welcome to Desert</h2>
+            <h3>Equipment Borrowing System for Laboratory Facilities</h3>
+            <a href="{% url 'login' %}">
+                <button class="get-starts-btn">Get Starts</button>
+            </a>
+        </div>
+    </section>
+</body>
+
+</html>

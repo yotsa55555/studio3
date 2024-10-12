@@ -73,7 +73,7 @@ def catalog_user(request):
         else:
             all_equipment = Equipment.objects.all()
             
-    return render(request, "catalog_user.html", {
+    return render(request, "user/catalog_user.html", {
         "all_equipment": all_equipment,
         "all_status": all_status,
         "selected_status": selected_status,
@@ -93,14 +93,14 @@ def catalog_staff(request):
         else:
             all_equipment = Equipment.objects.all()
             
-    return render(request, "catalog labstaff.html", {
+    return render(request, "staff/catalog labstaff.html", {
         "all_equipment": all_equipment,
         "all_status": all_status,
         "selected_status": selected_status,
         })
 
 def catalog_admin(request):
-    return render(request, "catalog admin.html")
+    return render(request, "admin/catalog admin.html")
 
 def borrow_view(request):
     form = BorrowingForm()
@@ -108,7 +108,28 @@ def borrow_view(request):
     # Pass all products as context for filtering in the frontend
     products = Equipment.objects.all()
 
-    return render(request, 'borrow_user.html', {
+    return render(request, 'user/borrow_user.html', {
         'form': form,
         'products': products
     })
+
+def home_staff(request):
+    return render(request, "staff/home_staff.html")
+
+def approval_staff(request):
+    return render(request, "staff/approval_staff.html")
+
+def history_staff(request):
+    return render(request, "staff/borrow_lab.html")
+
+def home_user(request):
+    return render(request, "user/home_user.html")
+
+def edit_admin(request):
+    return render(request, "admin/edit admin.html")
+
+def home_admin(request):
+    return render(request, "admin/home_admin.html")
+
+def report_admin(request):
+    return render(request, "admin/Dashboard.html")

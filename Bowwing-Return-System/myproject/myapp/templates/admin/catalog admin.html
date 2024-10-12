@@ -10,6 +10,16 @@
 <body>
     <div class="container">
         <h1>Catalog Admin</h1>
+
+        <a href="{% url 'home_admin' %}" class="edit-btn">HOME</a>
+        <a href="{% url 'catalog_admin' %}" class="edit-btn">CATALOG</a>
+        <a href="{% url 'report_admin' %}" class="edit-btn">REPORT</a>
+        <a href="#" class="edit-btn">HISTORY</a>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" id="logout-btn" class="logout-btn">Logout</button>
+        </form>
+
         <div class="btn-container">
             <button class="btn available">Available</button>
             <button class="btn unavailable">Unavailable</button>
@@ -35,7 +45,13 @@
                     <td>Brand X</td>
                     <td>2024-08-30</td>
                     <td>2024-09-05</td>
-                    <td><button class="edit-btn">Edit</button></td>
+                    <td>
+                        <form action="{% url 'edit_admin' %}" method="get">
+                            <button type="submit" class="edit-btn">Edit</button>
+                        </form>
+                    </td>
+
+
                 </tr>
 
                 <tr>
@@ -45,7 +61,11 @@
                     <td>Brand X</td>
                     <td>2024-08-30</td>
                     <td>2024-09-05</td>
-                    <td><button class="edit-btn">Edit</button></td>
+                    <td>
+                        <form action="{% url 'edit_admin' %}" method="get">
+                            <button type="submit" class="edit-btn">Edit</button>
+                        </form>
+                    </td>
                 </tr>
 
                 <tr>
@@ -55,7 +75,11 @@
                     <td>Brand X</td>
                     <td>2024-08-30</td>
                     <td>2024-09-05</td>
-                    <td><button class="edit-btn">Edit</button></td>
+                    <td>
+                        <form action="{% url 'edit_admin' %}" method="get">
+                            <button type="submit" class="edit-btn">Edit</button>
+                        </form>
+                    </td>
                 </tr>
                 <!-- Additional rows go here -->
             </tbody>

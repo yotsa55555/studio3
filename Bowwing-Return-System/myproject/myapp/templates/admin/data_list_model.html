@@ -157,7 +157,11 @@
         </form>
     </div>
     <div>
-        <button class="logout-btn">Log Out</button>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" id="logout-btn" class="logout-btn">Logout</button>
+        </form>
+
     </div>
 
 </body>
