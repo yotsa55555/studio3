@@ -3,6 +3,10 @@ from django.contrib import messages
 from myapp.models import Student, Staff, Admin, Equipment, Status
 from .borrowing import BorrowingForm
 from django.db.models import Q
+from myapp.models import Equipment
+from django.core.exceptions import ValidationError
+from django.shortcuts import render, redirect, get_object_or_404
+
 
 def home(request):
     all_student = Student.objects.all()
@@ -67,12 +71,14 @@ def catalog_user(request):
     selected_status = request.POST.get('filter')
     query = request.GET.get("q")
     print(selected_status)
+
     if query:
         all_equipment = all_equipment.filter(
             Q(name__icontains=query)
             | Q(brand__icontains=query)
             | Q(parcel_id__icontains=query)
         )
+
     if selected_status:
         if selected_status == "Unavailable":
             all_equipment = Equipment.objects.filter(status = True)
@@ -95,11 +101,8 @@ def catalog_staff(request):
     query = request.GET.get("q")
     print(selected_status)
     if query:
-        all_equipment = all_equipment.filter(
-            Q(name__icontains=query)
-            | Q(brand__icontains=query)
-            | Q(parcel_id__icontains=query)
-        )
+        all_equipment = all_equipment.filter(borrower__fullname__icontains=query)
+
     if selected_status:
         if selected_status == "Unavailable":
             all_equipment = Equipment.objects.filter(status = True)
@@ -115,12 +118,12 @@ def catalog_staff(request):
         })
 
 def catalog_admin(request):
-    return render(request, "admin/catalog admin.html")
+    devices = Equipment.objects.all()
+    return render(request, "admin/catalog admin.html", {"devices": devices})
 
 def borrow_view(request):
     form = BorrowingForm()
 
-    # Pass all products as context for filtering in the frontend
     products = Equipment.objects.all()
 
     return render(request, 'user/borrow_user.html', {
@@ -135,13 +138,39 @@ def approval_staff(request):
     return render(request, "staff/approval_staff.html")
 
 def history_staff(request):
-    return render(request, "staff/borrow_lab.html")
+    return render(request, "staff/history_staff.html")
 
 def home_user(request):
     return render(request, "user/home_user.html")
 
-def edit_admin(request):
-    return render(request, "admin/edit admin.html")
+
+def edit_admin(request, equipment_id):
+    device = get_object_or_404(Equipment, equipment_id=equipment_id)
+
+    if request.method == "POST":
+        device.name = request.POST["deviceName"]
+        device.parcel_id = request.POST["parcelName"]
+        device.brand = request.POST["brand"]
+
+        status = request.POST["status"]
+        if status == "available":
+            device.status = False
+        elif status == "unavailable":
+            device.status = True
+
+        if request.FILES.get("uploadPhoto"):
+            device.image = request.FILES["uploadPhoto"]
+
+        try:
+            device.clean()
+            device.save()
+            messages.success(request, "Device updated successfully!")
+            return redirect("catalog_admin")
+        except ValidationError as e:
+            messages.error(request, e.message)
+
+    return render(request, "admin/edit admin.html", {"device": device})
+
 
 def home_admin(request):
     return render(request, "admin/home_admin.html")

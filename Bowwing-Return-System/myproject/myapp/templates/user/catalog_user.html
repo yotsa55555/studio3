@@ -42,7 +42,7 @@
                     <input type="text" placeholder="Search..." id="search-bar" name="q" value="{{ request.GET.q|default_if_none:'' }}"
                         onkeydown="if(event.key === 'Enter'){ this.form.submit(); }">
                 </form>
-                
+
                 <form action="" method="post">
                     {% csrf_token %}
                     <span>Status: </span>
@@ -69,7 +69,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Picture</th>
-                    <th scope="col">Equipment Name</th>
+                    <th scope="col">Equipment</th>
                     <th scope="col">Parcel ID</th>
                     <th scope="col">Brand</th>
                     <th scope="col">Date Borrow</th>

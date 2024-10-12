@@ -1,41 +1,44 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit</title>
     <link rel="stylesheet" href="{% static 'edit admin.css' %}">
-   
 </head>
+
 <body>
     <div class="container">
-        <button class="close-btn">&times;</button>
+        <button class="close-btn" onclick="window.location.href='{% url 'catalog_admin' %}'">&times;</button>
         <h1>Edit Device</h1>
-        <form>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+        
             <label for="deviceName">Device Name</label>
-            <input type="text" id="deviceName" name="deviceName" required>
-
+            <input type="text" id="deviceName" name="deviceName" value="{{ device.name }}" required>
+        
             <label for="parcelName">Parcel Name</label>
-            <input type="text" id="parcelName" name="parcelName" required>
-
+            <input type="text" id="parcelName" name="parcelName" value="{{ device.parcel_id }}" required>
+        
             <label for="brand">Brand</label>
-            <input type="text" id="brand" name="brand" required>
-
+            <input type="text" id="brand" name="brand" value="{{ device.brand }}" required>
+        
             <label for="status">Status</label>
             <select id="status" name="status" required>
-                <option value="available">Available</option>
-                <option value="unavailable">Unavailable</option>
+                <option value="available" {% if not device.status %}selected{% endif %}>Available</option>
+                <option value="unavailable" {% if device.status %}selected{% endif %}>Unavailable</option>
                 <option value="damaged">Damaged</option>
             </select>
-
+        
             <label for="uploadPhoto">Upload Photo</label>
-            <input type="file" id="uploadPhoto" name="uploadPhoto" accept="image/*" required>
-
-            <div class="btn-container">
-                <button type="submit" class="btn save">Save</button>
-            </div>
+            <input type="file" id="uploadPhoto" name="uploadPhoto" accept="image/*">
+        
+            <button type="submit" class="btn save">Save</button>
         </form>
+
     </div>
 </body>
+
 </html>

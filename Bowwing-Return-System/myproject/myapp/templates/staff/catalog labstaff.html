@@ -36,7 +36,7 @@
     </header>
 
     <div class="container">
-        <h1>Catalog for Borrowing</h1>
+        <h1>Catalog for Lab Staff</h1>
         <header>
             <div class="header-left">
                 <form action="" method="get"> 
@@ -57,7 +57,6 @@
                 </form>
                 </select>
             </div>
-            <button id="request-button" href="{% url 'borrow_request' %}">Borrowing</button>
         </header>
 
         <table>
@@ -65,7 +64,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Picture</th>
-                    <th scope="col">Equipment Name</th>
+                    <th scope="col">Equipment</th>
                     <th scope="col">Parcel ID</th>
                     <th scope="col">Brand</th>
                     <th scope="col">Date Borrow</th>
@@ -73,6 +72,7 @@
                     <th scope="col">Borrower</th>
                     <th scope="col">Tel.</th>
                     <th scope="col">Student ID</th>
+                    <th scope="col">Major</th>
                     <th scope="col">Action</th>
                     <th scope="col">Status</th>
                 </tr>
@@ -118,6 +118,13 @@
                                 {{ equipment.borrower.student_id_edu|slice:":-1" }}-{{ equipment.borrower.student_id_edu|slice:"-1:" }}
                             {% else %}
                                 -
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if equipment.borrower %}
+                            {{ equipment.borrower.major }}
+                            {% else %}
+                            -
                             {% endif %}
                         </td>
                         <td>Return</td>
