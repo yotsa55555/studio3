@@ -26,6 +26,9 @@
         {% csrf_token %}
         <fieldset>
             <legend>Borrowing</legend>
+            {%  if user.is_authenticated %}
+                <h3>username: {{ user.username }}</h3>
+            {% endif %}
             <label for="id_name" class="form-label">Equipment name: </label>
             <input type="text" value="{{ equipment.name }}" disabled></input>
 
@@ -36,11 +39,11 @@
             <input type="text" value="{{ equipment.brand }}" disabled></input>
 
             <p>
-                <label for="date">Borrowing date</label>
-                <input type="date" id="date">
+                <label for="date_borrow">Borrowing date</label>
+                <input type="date" name="date_borrow">
 
-                <label for="date">Return date</label>
-                <input type="date" id="date">
+                <label for="date_return">Return date</label>
+                <input type="date" name="date_return">
             </p>
           
             <button type="submit">Button submit</button>

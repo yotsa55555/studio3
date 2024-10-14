@@ -127,7 +127,16 @@
                             -
                             {% endif %}
                         </td>
-                        <td>Return</td>
+                        <td>
+                            {% if equipment.status %}
+                                <form action="{% url 'return_item' equipment.equipment_id %}" method="post">
+                                    {% csrf_token %}
+                                    <button id="request-button" type="submit">Return</button>
+                                </form>
+                            {% else %}
+                                <button id="disabled-button" type="submit" disabled>Return</button>
+                            {% endif %}
+                        </td>
                         <td>
                             {% if equipment.status %}
                                 <span class="status unavailable">Unavailable</span>

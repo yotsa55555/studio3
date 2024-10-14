@@ -1,42 +1,54 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from myapp.models import Student, Staff, Admin, Equipment, Status
-from .borrowing import BorrowingForm
-from django.db.models import Q
-from myapp.models import Equipment
-from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect, get_object_or_404
-
+from django.contrib import messages
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from myapp.models import Student, Staff, Admin, Equipment, Borrowing
+from django.db.models import Q
+from django.core.exceptions import ValidationError
 
 def home(request):
     all_student = Student.objects.all()
     return render(request, "home.html", {'all_student': all_student})
 
-def login(request):
+def user_login(request):
     if request.method == "POST":
-        all_student = Student.objects.all()
-        all_staff = Staff.objects.all()
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
         all_admin = Admin.objects.all()
+        all_staff = Staff.objects.all()
+        all_student = Student.objects.all()
 
-        kkumail = request.POST['kkumail']
-        password = request.POST['password']
+        user = authenticate(request, email=email, password=password)
+        print(user)
+        if user is not None:
+            try:
+                if Admin.objects.get(email=user):
+                    print("admin checked!")
+                    login(request, user)
+                    return redirect('catalog_admin')
+            except:
+                try:
+                    if Staff.objects.get(email=user):
+                        print("staff checked!")
+                        login(request, user)
+                        return redirect('catalog_staff')
+                except:
+                    try:    
+                        if Student.objects.get(kkumail=user):
+                                print("student checked!")
+                                login(request, user)
+                                return redirect('catalog_user')
+                    except:
+                        messages.error(request, 'Invalid credentials')
 
-        for student in all_student:
-            if kkumail == student.kkumail and password == student.password:
-                return redirect('catalog_user')
-            
-        for staff in all_staff:
-            if kkumail == staff.email and password == staff.password:
-                return redirect('catalog_staff')
-            
-        for admin in all_admin:
-            if kkumail == admin.email and password == admin.password:
-                return redirect('catalog_admin')
-            else:
-                messages.error(request, 'Your email or password is incorrect!')
-                return redirect('login')
+        return render(request, 'login.html', {'error': 'Invalid credentials'})
 
     return render(request, "login.html")
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
 
 def registor(request):
     if request.method == "POST":
@@ -65,9 +77,9 @@ def registor(request):
     
     return render(request, "registor.html")
 
+@login_required
 def catalog_user(request):
     all_equipment = Equipment.objects.all()
-    all_status = Status.objects.all()
     selected_status = request.POST.get('filter')
     query = request.GET.get("q")
     print(selected_status)
@@ -89,14 +101,12 @@ def catalog_user(request):
 
     return render(request, "user/catalog_user.html", {
         "all_equipment": all_equipment,
-        "all_status": all_status,
         "selected_status": selected_status,
         })
 
-
+@login_required
 def catalog_staff(request):
     all_equipment = Equipment.objects.all()
-    all_status = Status.objects.all()
     selected_status = request.POST.get('filter')
     query = request.GET.get("q")
     print(selected_status)
@@ -113,24 +123,60 @@ def catalog_staff(request):
 
     return render(request, "staff/catalog labstaff.html", {
         "all_equipment": all_equipment,
-        "all_status": all_status,
         "selected_status": selected_status,
         })
 
+@login_required
 def catalog_admin(request):
     devices = Equipment.objects.all()
     return render(request, "admin/catalog admin.html", {"devices": devices})
 
 def borrow_view(request, equipment_id):
     equipment = Equipment.objects.get(equipment_id=equipment_id)
-
+    if request.method == 'POST':
+        date_borrow = request.POST.get('date_borrow')
+        date_return = request.POST.get('date_return')
+        borrow = Borrowing(equipment=equipment, borrower=request.user, borrowed_on=date_borrow, returned_on=date_return)
+        borrow.save()
+        print(borrow)
+        return redirect('catalog_user')
     return render(request, 'user/borrow_user.html', {"equipment": equipment})
 
 def home_staff(request):
     return render(request, "staff/home_staff.html")
 
 def approval_staff(request):
-    return render(request, "staff/approval_staff.html")
+    all_borrow = Borrowing.objects.all()
+    return render(request, "staff/approval_staff.html", { "all_borrow": all_borrow })
+
+def borrow_pass(request, borrow_id):
+    borrow = Borrowing.objects.get(id=borrow_id)
+    equipment = Equipment.objects.get(equipment_id=borrow.equipment.equipment_id)
+    if request.method == "POST":
+        if 'action' in request.POST:
+            if request.POST['action'] == 'agree':
+                print('pass', borrow_id)
+                equipment.status = True
+                equipment.date_borrow = borrow.borrowed_on
+                equipment.date_return = borrow.returned_on
+                equipment.borrower = borrow.borrower
+                equipment.save()
+                borrow.delete()
+
+            elif request.POST['action'] == 'disagree':
+                print('no pass', borrow_id)
+                borrow.delete()
+
+    return redirect('approval_staff')
+
+def return_item(request, equipment_id):
+    equipment = Equipment.objects.get(equipment_id=equipment_id)
+    if request.method == "POST":
+        print('pass')
+        equipment.status = False
+        equipment.clean()
+        equipment.save()
+    return redirect('catalog_staff')
 
 def history_staff(request):
     return render(request, "staff/history_staff.html")
