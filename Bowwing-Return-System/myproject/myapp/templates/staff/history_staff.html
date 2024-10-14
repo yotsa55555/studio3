@@ -1,14 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalog for Borrowing</title>
-    <link rel="stylesheet" href="{% static 'labstaff_catalog.css' %}">  
+    <link rel="stylesheet" href="{% static 'labstaff_catalog.css' %}">
 </head>
 
-<body>  
+<body>
     <header>
         <div class="logo">
             <img src="{% static 'images/logo_empty.png' %}" alt="Logo">
@@ -19,7 +20,7 @@
                 <div class="logo-subtext">Facilities</div>
             </div>
         </div>
-        
+
         <nav>
             <ul>
                 <li><a href="{% url 'home_staff' %}">HOME</a></li>
@@ -39,23 +40,10 @@
         <h1>Catalog for Lab Staff</h1>
         <header>
             <div class="header-left">
-                <form action="" method="get"> 
-                    <input type="text" placeholder="Search..." id="search-bar" name="q" value="{{ request.GET.q|default_if_none:'' }}"
-                        onkeydown="if(event.key === 'Enter'){ this.form.submit(); }">
+                <form action="" method="get">
+                    <input type="text" placeholder="Search by borrower's name..." id="search-bar" name="q"
+                        value="{{ request.GET.q|default_if_none:'' }}" onkeydown="if(event.key === 'Enter'){ this.form.submit(); }">
                 </form>
-
-                <form action="" method="post">
-                    {% csrf_token %}
-                    <span>Status: </span>
-                    <select id="status-dropdown" name="filter" onchange="this.form.submit();">
-                        {% for status in all_status %}
-                            <option value="{{ status.name }}">
-                                {{ status.name }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </form>
-                </select>
             </div>
         </header>
 
@@ -63,22 +51,22 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Picture</th>
-                    <th scope="col">Equipment</th>
-                    <th scope="col">Parcel ID</th>
-                    <th scope="col">Brand</th>
-                    <th scope="col">Date Borrow</th>
-                    <th scope="col">Date Return</th>
-                    <th scope="col">Borrower</th>
-                    <th scope="col">Tel.</th>
+                    <th scope="col">Name</th>
                     <th scope="col">Student ID</th>
-                    <th scope="col">Major</th>
-                    <th scope="col">Action</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Tel.</th>
+                    <th scope="col">Borrowed (times)</th>
+                    <th scope="col">Borrowing (times)</th>
+                    <th scope="col">Returned (times)</th>
+                    <th scope="col">Not returned (pieces)</th>
                 </tr>
             </thead>
             <tbody>
-                {% for equipment in all_equipment %}
+                {% if not equipment %}
+                    <tr>
+                        <td colspan="8" style="text-align: center;">No data</td>
+                    </tr>
+                {% else %}
+                    {% for equipment in all_equipment %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td><img src="{{ equipment.image.url }}" alt="{{ equipment.name }}"></td>
@@ -87,37 +75,39 @@
                         <td>{{ equipment.brand }}</td>
                         <td>
                             {% if equipment.date_borrow %}
-                                {{ equipment.date_borrow|date:"d-m-Y" }}
+                            {{ equipment.date_borrow|date:"d-m-Y" }}
                             {% else %}
-                                -
+                            -
                             {% endif %}
                         </td>
                         <td>
                             {% if equipment.date_return %}
-                                {{ equipment.date_return|date:"d-m-Y" }}
+                            {{ equipment.date_return|date:"d-m-Y" }}
                             {% else %}
-                                -
+                            -
                             {% endif %}
                         </td>
                         <td>
                             {% if equipment.borrower %}
-                                {{ equipment.borrower.fullname }}
+                            {{ equipment.borrower.fullname }}
                             {% else %}
-                                -
+                            -
                             {% endif %}
                         </td>
                         <td>
                             {% if equipment.borrower %}
-                                {{ equipment.borrower.phone|slice:":3" }} {{ equipment.borrower.phone|slice:"3:6" }} {{ equipment.borrower.phone|slice:"6:" }}
+                            {{ equipment.borrower.phone|slice:":3" }} {{ equipment.borrower.phone|slice:"3:6" }} {{
+                            equipment.borrower.phone|slice:"6:" }}
                             {% else %}
-                                -
+                            -
                             {% endif %}
                         </td>
                         <td>
                             {% if equipment.borrower %}
-                                {{ equipment.borrower.student_id_edu|slice:":-1" }}-{{ equipment.borrower.student_id_edu|slice:"-1:" }}
+                            {{ equipment.borrower.student_id_edu|slice:":-1" }}-{{
+                            equipment.borrower.student_id_edu|slice:"-1:" }}
                             {% else %}
-                                -
+                            -
                             {% endif %}
                         </td>
                         <td>
@@ -130,18 +120,20 @@
                         <td>Return</td>
                         <td>
                             {% if equipment.status %}
-                                <span class="status unavailable">Unavailable</span>
+                            <span class="status unavailable">Unavailable</span>
 
                             {% else %}
-                                <span class="status available">Available</span>
-                            
+                            <span class="status available">Available</span>
+
                             {% endif %}
                         </td>
                     </tr>
-                {% endfor %}
+                    {% endfor %}
+                {% endif %}
             </tbody>
         </table>
-      </table>
+        </table>
     </div>
 </body>
+
 </html>

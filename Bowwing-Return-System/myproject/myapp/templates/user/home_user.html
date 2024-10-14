@@ -1,32 +1,10 @@
+{% extends 'user/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equipment Borrowing System</title>
-    <link rel="stylesheet" href="{% static 'homecss.css' %}">
-</head>
+{% block static %}<link rel="stylesheet" href="{% static 'homecss.css' %}">{% endblock %}
+{% block title %}Equipment Borrowing System{% endblock %}
 
-<body>
-    <header>
-        <div>
-            <h1>BLF</h1>
-        </div>
-        <nav>
-            <a href="{% url 'home_user' %}">
-                <button class="register-btn">Home</button>
-            </a>
-            <a href="{% url 'catalog_user' %}">
-                <button class="register-btn">CATALOG</button>
-            </a>
-            <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" id="logout-btn" class="logout-btn">Logout</button>
-            </form>
-        </nav>
-    </header>
+{% block content %}
     <section class="welcome">
         <div class="welcome-text">
             <h2>Welcome to Desert</h2>
@@ -36,6 +14,4 @@
             </a>
         </div>
     </section>
-</body>
-
-</html>
+{% endblock %}

@@ -17,13 +17,12 @@ urlpatterns = [
     path("approval_staff/", views.approval_staff, name="approval_staff"),
     path("history_staff/", views.history_staff, name="history_staff"),
     path("home_user/", views.home_user, name="home_user"),
-    path(
-        "logout/", auth_views.LogoutView.as_view(next_page="home"), name="logout"
-    ),
+    path("logout/", auth_views.LogoutView.as_view(next_page="home"), name="logout"),
     path("edit_admin/", views.edit_admin, name="edit_admin"),
     path("home_admin/", views.home_admin, name="home_admin"),
     path("report_admin/", views.report_admin, name="report_admin"),
     path("history_admin/", views.history_admin, name="history_admin"),
+    path("edit_admin/<int:equipment_id>/", views.edit_admin, name="edit_admin"),
 ]
 
 if settings.DEBUG:
