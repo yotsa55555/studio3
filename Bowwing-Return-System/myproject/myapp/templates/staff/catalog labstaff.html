@@ -1,40 +1,10 @@
+{% extends 'staff/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalog for Borrowing</title>
-    <link rel="stylesheet" href="{% static 'labstaff_catalog.css' %}">  
-</head>
 
-<body>  
-    <header>
-        <div class="logo">
-            <img src="{% static 'images/logo_empty.png' %}" alt="Logo">
-            <div class="text-content">
-                <span class="logo-letters">B <span class="red-letter">L</span> F</span>
-                <div class="logo-subtext">Equipment borrowing</div>
-                <div class="logo-subtext">System for Laboratory</div>
-                <div class="logo-subtext">Facilities</div>
-            </div>
-        </div>
-        
-        <nav>
-            <ul>
-                <li><a href="{% url 'home_staff' %}">HOME</a></li>
-                <li><a href="{% url 'catalog_staff' %}">CATALOG</a></li>
-                <li><a href="{% url 'approval_staff' %}">APPROVAL</a></li>
-                <li><a href="{% url 'history_staff' %}">HISTORY</a></li>
-                <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" id="logout-btn" class="logout-btn">Logout</button>
-                </form>
+{% block static %}<link rel="stylesheet" href="{% static 'labstaff_catalog.css' %}">{% endblock %}
+{% block title %}Catalog for Borrowing{% endblock %}
 
-            </ul>
-        </nav>
-    </header>
-
+{% block content %} 
     <div class="container">
         <h1>Catalog for Lab Staff</h1>
         <header>
@@ -48,11 +18,9 @@
                     {% csrf_token %}
                     <span>Status: </span>
                     <select id="status-dropdown" name="filter" onchange="this.form.submit();">
-                        {% for status in all_status %}
-                            <option value="{{ status.name }}">
-                                {{ status.name }}
-                            </option>
-                        {% endfor %}
+                        <option value="">All</option>
+                        <option value="Available" {% if selected_status == 'Available' %}selected{% endif %}>Available</option>
+                        <option value="Unavailable" {% if selected_status == 'Unavailable' %}selected{% endif %}>Unavailable</option>
                     </select>
                 </form>
                 </select>
@@ -152,5 +120,4 @@
         </table>
       </table>
     </div>
-</body>
-</html>
+{% endblock %}
