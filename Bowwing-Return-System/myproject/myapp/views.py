@@ -12,30 +12,39 @@ def home(request):
 
 def user_login(request):
     if request.method == "POST":
-        all_student = Student.objects.all()
-        all_staff = Staff.objects.all()
-        all_admin = Admin.objects.all()
+        email = request.POST.get('email')
+        password = request.POST.get('password')
 
-        kkumail = request.POST["kkumail"]
-        password = request.POST["password"]
+        user = authenticate(request, email=email, password=password)
+        print(user)
+        if user is not None:
+            try:
+                if Admin.objects.get(email=user):
+                    print("admin checked!")
+                    login(request, user)
+                    return redirect('catalog_admin')
+            except:
+                try:
+                    if Staff.objects.get(email=user):
+                        print("staff checked!")
+                        login(request, user)
+                        return redirect('catalog_staff')
+                except:
+                    try:    
+                        if Student.objects.get(kkumail=user):
+                                print("student checked!")
+                                login(request, user)
+                                return redirect('catalog_user')
+                    except:
+                        messages.error(request, 'Invalid credentials')
 
-        for student in all_student:
-            if kkumail == student.kkumail and password == student.password:
-                return redirect("catalog_user")
-
-        for staff in all_staff:
-            if kkumail == staff.email and password == staff.password:
-                return redirect("catalog_staff")
-
-        for admin in all_admin:
-            if kkumail == admin.email and password == admin.password:
-                return redirect("catalog_admin")
-            else:
-                messages.error(request, "Your email or password is incorrect!")
-                return redirect("login")
+        return render(request, 'login.html', {'error': 'Invalid credentials'})
 
     return render(request, "login.html")
 
+def user_logout(request):
+    logout(request)
+    return redirect('login')
 
 def registor(request):
     if request.method == "POST":
@@ -64,11 +73,10 @@ def registor(request):
     
     return render(request, "registor.html")
 
-
+@login_required
 def catalog_user(request):
     all_equipment = Equipment.objects.all()
-    all_status = Status.objects.all()
-    selected_status = request.POST.get("filter")
+    selected_status = request.POST.get('filter')
     query = request.GET.get("q")
     print(selected_status)
 
@@ -87,21 +95,15 @@ def catalog_user(request):
         else:
             all_equipment = Equipment.objects.all()
 
-    return render(
-        request,
-        "user/catalog_user.html",
-        {
-            "all_equipment": all_equipment,
-            "all_status": all_status,
-            "selected_status": selected_status,
-        },
-    )
+    return render(request, "user/catalog_user.html", {
+        "all_equipment": all_equipment,
+        "selected_status": selected_status,
+        })
 
 @login_required
 def catalog_staff(request):
     all_equipment = Equipment.objects.all()
-    all_status = Status.objects.all()
-    selected_status = request.POST.get("filter")
+    selected_status = request.POST.get('filter')
     query = request.GET.get("q")
     print(selected_status)
     if query:
@@ -115,31 +117,51 @@ def catalog_staff(request):
         else:
             all_equipment = Equipment.objects.all()
 
-    return render(
-        request,
-        "staff/catalog labstaff.html",
-        {
-            "all_equipment": all_equipment,
-            "all_status": all_status,
-            "selected_status": selected_status,
-        },
-    )
+    return render(request, "staff/catalog labstaff.html", {
+        "all_equipment": all_equipment,
+        "selected_status": selected_status,
+        })
 
-
+@login_required
 def catalog_admin(request):
     devices = Equipment.objects.all()
-    return render(request, "admin/catalog admin.html", {"devices": devices})
+    selected_status = request.POST.get('filter')
+    query = request.GET.get("q")
+    print(selected_status)
+    if query:
+        devices = devices.filter(borrower__fullname__icontains=query)
 
+    if selected_status:
+        if selected_status == "Unavailable":
+            devices = Equipment.objects.filter(status=True)
+        elif selected_status == "Available":
+            devices = Equipment.objects.filter(status=False)
+        else:
+            devices = Equipment.objects.all()
 
-def borrow_view(request):
-    form = BorrowingForm()
+    return render(request, "admin1/catalog admin.html", {
+        "devices": devices,
+        "selected_status": selected_status,
+        })
+    # return render(request, "admin1/catalog admin.html", {"devices": devices})
 
-    products = Equipment.objects.all()
-
-    return render(
-        request, "user/borrow_user.html", {"form": form, "products": products}
-    )
-
+def borrow_view(request, equipment_id):
+    equipment = Equipment.objects.get(equipment_id=equipment_id)
+    if request.method == 'POST':
+        date_borrow = request.POST.get('date_borrow')
+        date_return = request.POST.get('date_return')
+        all_borrow = Borrowing.objects.all()
+        for borrow in all_borrow:
+            if borrow.equipment == equipment and borrow.borrower == request.user:
+                borrow.borrowed_on = date_borrow
+                borrow.returned_on = date_return
+                borrow.save()
+                return redirect('catalog_user')
+                
+        borrow = Borrowing(equipment=equipment, borrower=request.user, borrowed_on=date_borrow, returned_on=date_return)
+        borrow.save()
+        return redirect('catalog_user')
+    return render(request, 'user/borrow_user.html', {"equipment": equipment})
 
 def home_staff(request):
     return render(request, "staff/home_staff.html")
@@ -211,8 +233,8 @@ def edit_admin(request, equipment_id):
     return render(request, "admin1/edit admin.html", {"device": device})
 
 def delete_item(request, equipment_id):
-    device = get_object_or_404(Equipment, equipment_id=equipment_id)
-    print(device)
+    equipment = Equipment.objects.get(equipment_id=equipment_id)
+    equipment.delete()
     return redirect("catalog_admin")
 
 def add_item(request):
@@ -224,9 +246,9 @@ def add_item(request):
         image = request.FILES["uploadPhoto"]
 
         try:
-            device.clean()
-            device.save()
-            messages.success(request, "Device updated successfully!")
+            equipment = Equipment(image=image, name=name, parcel_id=parcel_id, brand=brand, status=status)
+            equipment.save()
+            messages.success(request, "Device add successfully!")
             return redirect("catalog_admin")
         except ValidationError as e:
             messages.error(request, e.message)
