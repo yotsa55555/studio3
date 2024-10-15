@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-.welcome {
-    position: relative;
-    background-image: url('https://media.cntraveler.com/photos/57211a96fe5fd76f60bc2764/16:9/w_2580,c_limit/deserts-Sahara-cr-GettyImages-74732427.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 650px;
-    width: 400;
-=======
 body {
-    background-image: url("{% static 'images/background-home.jpg' %}"); 
+    background-image: url("{% static 'images/background-home.jpg' %}"); /* Background image for the whole page */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -82,7 +73,6 @@ nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
->>>>>>> 87eb2c427422fc51205a18840b27d4d69e75be94
     display: flex;
     align-items: center;
 }
@@ -141,24 +131,6 @@ a[href*="Catalog"] {
 .login-btn:hover {
     background-color: #e60000;
 }
-
-.logout-btn {
-    background-color: #ff3333;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 1em;
-    margin-left: 10px;
-    border-radius: 5px;
-    position: relative;
-}
-
-.logout-btn:hover {
-    background-color: #e60000;
-}
-
-
 .welcome {
     position: relative;
     background-image: url("images/background-home.jpg");
