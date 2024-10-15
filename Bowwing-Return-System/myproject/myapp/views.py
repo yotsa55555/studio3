@@ -4,7 +4,6 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from myapp.models import Student, Staff, Admin, Equipment, Borrowing
 from django.db.models import Q
-from django.core.exceptions import ValidationError
 
 def home(request):
     all_student = Student.objects.all()
@@ -14,10 +13,6 @@ def user_login(request):
     if request.method == "POST":
         email = request.POST.get('email')
         password = request.POST.get('password')
-
-        all_admin = Admin.objects.all()
-        all_staff = Staff.objects.all()
-        all_student = Student.objects.all()
 
         user = authenticate(request, email=email, password=password)
         print(user)
@@ -136,9 +131,16 @@ def borrow_view(request, equipment_id):
     if request.method == 'POST':
         date_borrow = request.POST.get('date_borrow')
         date_return = request.POST.get('date_return')
+        all_borrow = Borrowing.objects.all()
+        for borrow in all_borrow:
+            if borrow.equipment == equipment and borrow.borrower == request.user:
+                borrow.borrowed_on = date_borrow
+                borrow.returned_on = date_return
+                borrow.save()
+                return redirect('catalog_user')
+                
         borrow = Borrowing(equipment=equipment, borrower=request.user, borrowed_on=date_borrow, returned_on=date_return)
         borrow.save()
-        print(borrow)
         return redirect('catalog_user')
     return render(request, 'user/borrow_user.html', {"equipment": equipment})
 

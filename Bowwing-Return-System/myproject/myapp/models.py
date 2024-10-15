@@ -38,7 +38,6 @@ class Staff(models.Model):
     def is_authenticated(self):
         return True
 
-
 class Admin(models.Model):
     admin_id = models.AutoField(primary_key=True)
     username= models.CharField(max_length=100, default="admin")
