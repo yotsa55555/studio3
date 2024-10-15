@@ -4,10 +4,12 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from myapp.models import Student, Staff, Admin, Equipment, Borrowing
 from django.db.models import Q
+from django.core.exceptions import ValidationError
 
 def home(request):
     all_student = Student.objects.all()
-    return render(request, "home.html", {'all_student': all_student})
+    return render(request, "home.html", {"all_student": all_student})
+
 
 def user_login(request):
     if request.method == "POST":
@@ -47,29 +49,31 @@ def user_logout(request):
 
 def registor(request):
     if request.method == "POST":
-        #get info
-        fullname = request.POST['fullname']
-        username = request.POST['username']
-        kkumail = request.POST['kkumail']
-        phone = request.POST['phone']
-        password = request.POST['password']
-        student_id_edu = request.POST['student_id_edu']
-        major = request.POST['Major']
-        print(f"fullname: {fullname}\nusername: {username}\nkkumail: {kkumail}\nphone: {phone}\npassword: {password}\nstudent id: {student_id_edu}\nmajor: {major}")
-        
-        #save info
+        # get info
+        fullname = request.POST["fullname"]
+        username = request.POST["username"]
+        kkumail = request.POST["kkumail"]
+        phone = request.POST["phone"]
+        password = request.POST["password"]
+        student_id_edu = request.POST["student_id_edu"]
+        major = request.POST["Major"]
+        print(
+            f"fullname: {fullname}\nusername: {username}\nkkumail: {kkumail}\nphone: {phone}\npassword: {password}\nstudent id: {student_id_edu}\nmajor: {major}"
+        )
+
+        # save info
         student = Student.objects.create(
-            fullname = fullname,
-            username = username,
-            kkumail = kkumail,
-            phone = phone,
-            password = password,
-            student_id_edu = student_id_edu,
-            major = major
+            fullname=fullname,
+            username=username,
+            kkumail=kkumail,
+            phone=phone,
+            password=password,
+            student_id_edu=student_id_edu,
+            major=major,
         )
         student.save()
-        return redirect('login')
-    
+        return redirect("login")
+
     return render(request, "registor.html")
 
 @login_required
@@ -88,9 +92,9 @@ def catalog_user(request):
 
     if selected_status:
         if selected_status == "Unavailable":
-            all_equipment = Equipment.objects.filter(status = True)
+            all_equipment = Equipment.objects.filter(status=True)
         elif selected_status == "Available":
-            all_equipment = Equipment.objects.filter(status = False)
+            all_equipment = Equipment.objects.filter(status=False)
         else:
             all_equipment = Equipment.objects.all()
 
@@ -110,9 +114,9 @@ def catalog_staff(request):
 
     if selected_status:
         if selected_status == "Unavailable":
-            all_equipment = Equipment.objects.filter(status = True)
+            all_equipment = Equipment.objects.filter(status=True)
         elif selected_status == "Available":
-            all_equipment = Equipment.objects.filter(status = False)
+            all_equipment = Equipment.objects.filter(status=False)
         else:
             all_equipment = Equipment.objects.all()
 
@@ -124,7 +128,25 @@ def catalog_staff(request):
 @login_required
 def catalog_admin(request):
     devices = Equipment.objects.all()
-    return render(request, "admin/catalog admin.html", {"devices": devices})
+    selected_status = request.POST.get('filter')
+    query = request.GET.get("q")
+    print(selected_status)
+    if query:
+        devices = devices.filter(borrower__fullname__icontains=query)
+
+    if selected_status:
+        if selected_status == "Unavailable":
+            devices = Equipment.objects.filter(status=True)
+        elif selected_status == "Available":
+            devices = Equipment.objects.filter(status=False)
+        else:
+            devices = Equipment.objects.all()
+
+    return render(request, "admin1/catalog admin.html", {
+        "devices": devices,
+        "selected_status": selected_status,
+        })
+    # return render(request, "admin1/catalog admin.html", {"devices": devices})
 
 def borrow_view(request, equipment_id):
     equipment = Equipment.objects.get(equipment_id=equipment_id)
@@ -180,12 +202,12 @@ def return_item(request, equipment_id):
         equipment.save()
     return redirect('catalog_staff')
 
+
 def history_staff(request):
     return render(request, "staff/history_staff.html")
 
 def home_user(request):
     return render(request, "user/home_user.html")
-
 
 def edit_admin(request, equipment_id):
     device = get_object_or_404(Equipment, equipment_id=equipment_id)
@@ -212,14 +234,37 @@ def edit_admin(request, equipment_id):
         except ValidationError as e:
             messages.error(request, e.message)
 
-    return render(request, "admin/edit admin.html", {"device": device})
+    return render(request, "admin1/edit admin.html", {"device": device})
 
+def delete_item(request, equipment_id):
+    device = get_object_or_404(Equipment, equipment_id=equipment_id)
+    print(device)
+    return redirect("catalog_admin")
+
+def add_item(request):
+    if request.method == "POST":
+        name = request.POST["deviceName"]
+        parcel_id = request.POST["parcelName"]
+        brand = request.POST["brand"]
+        status = False
+        image = request.FILES["uploadPhoto"]
+
+        try:
+            device.clean()
+            device.save()
+            messages.success(request, "Device updated successfully!")
+            return redirect("catalog_admin")
+        except ValidationError as e:
+            messages.error(request, e.message)
+    return render(request, "admin1/add_item.html")
 
 def home_admin(request):
-    return render(request, "admin/home_admin.html")
+    return render(request, "admin1/home_admin.html")
+
 
 def report_admin(request):
-    return render(request, "admin/Dashboard.html")
+    return render(request, "admin1/Dashboard.html")
+
 
 def history_admin(request):
-    return render(request, "admin/history_admin.html")
+    return render(request, "admin1/history_admin.html")

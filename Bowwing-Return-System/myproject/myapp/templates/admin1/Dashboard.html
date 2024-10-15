@@ -1,26 +1,16 @@
+{% extends 'admin1/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="{% static 'Dashboard.css' %}">
-</head>
-<body>
-    <div class="container">
+
+{% block static %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="{% static 'Dashboard.css' %}">
+{% endblock %}
+{% block title %}Report Dashboard{% endblock %}
+
+{% block content %}
+    <div class="container" style="margin: 30px 10vw;">
         <h1>Report Dashboard</h1>
 
-        <a href="{% url 'home_admin' %}" class="edit-btn">HOME</a>
-        <a href="{% url 'catalog_admin' %}" class="edit-btn">CATALOG</a>
-        <a href="{% url 'report_admin' %}" class="edit-btn">REPORT</a>
-        <a href="{% url 'history_admin' %}" class="edit-btn">HISTORY</a>
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" id="logout-btn" class="edit-btn">Logout</button>
-        </form>
-        
         <!-- Section for Number of Devices -->
         <div class="report-section">
             <div class="card" id="deviceCard">
@@ -148,5 +138,4 @@
             document.getElementById(modalId).style.display = 'none';
         }
     </script>
-</body>
-</html>
+{% endblock %}

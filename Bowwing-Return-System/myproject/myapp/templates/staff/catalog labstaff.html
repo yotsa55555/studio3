@@ -9,8 +9,9 @@
         <h1>Catalog for Lab Staff</h1>
         <header>
             <div class="header-left">
-                <form action="" method="get"> 
-                    <input type="text" placeholder="Search..." id="search-bar" name="q" value="{{ request.GET.q|default_if_none:'' }}"
+                <form action="" method="get">
+                    <input type="text" placeholder="Search..." id="search-bar" name="q"
+                        value="{{ request.GET.q|default_if_none:'' }}"
                         onkeydown="if(event.key === 'Enter'){ this.form.submit(); }">
                 </form>
 
@@ -108,8 +109,7 @@
                         <td>
                             {% if equipment.status %}
                                 <span class="status unavailable">Unavailable</span>
-
-                            {% else %}
+                                {% else %}
                                 <span class="status available">Available</span>
                             
                             {% endif %}
@@ -117,7 +117,11 @@
                     </tr>
                 {% endfor %}
             </tbody>
+            <script>
+                function navigateToBorrow(equiment_id) {
+                    window.location.href = '/user_borrowing/' + equiment_id ;
+                }
+            </script>
         </table>
-      </table>
     </div>
 {% endblock %}
