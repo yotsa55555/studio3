@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Borrowing System</title>
+    <link rel="stylesheet" href="home1.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo_empty.png" alt="Logo">
+            <div class="text-content">
+                <span class="logo-letters">B <span class="red-letter">L</span> F</span>
+                <div class="logo-subtext">Equipment borrowing</div>
+                <div class="logo-subtext">System for Laboratory</div>
+                <div class="logo-subtext">Facilities</div>
+            </div>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="#">HOME</a></li>
+                <li><a href="#">CATALOG</a></li>
+                <a href="{% url 'login' %}">
+                    <button class="login-btn">Log in</button>
+                </a>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="welcome" style="background-image: url('images/home.jpg');">
+        <div class="welcome-text">
+            <h2>Equipment</h2>
+            <h2><span class="red-text">Borrowing</span> System</h2>
+            <h2>for Laboratory</h2>
+            <h2>Facilities</h2>
+            <a href="login">
+                <button class="get-starts-btn">GET STARTS</button>
+            </a>
+        </div>
+    </section>
+</body>
+
+</html>
