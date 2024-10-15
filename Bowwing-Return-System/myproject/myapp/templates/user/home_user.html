@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -8,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Equipment Borrowing System</title>
     <link rel="stylesheet" href="{% static 'homecss.css' %}">
-    <style> 
+    <style>
         body {
-            background-image: url("{% static 'images/background-home.jpg' %}"); 
+            background-image: url("{% static 'images/home.jpg' %}");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -18,7 +17,7 @@
             margin: 0;
             padding: 0;
         }
-        
+
         header {
             display: flex;
             align-items: center;
@@ -26,52 +25,52 @@
             padding: 10px 20px;
             background-color: #ffffff;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
         }
-        
+
         .logo img {
-            width: 100px; 
-            height: auto; 
-            margin-right: 10px; 
+            width: 100px;
+            height: auto;
+            margin-right: 10px;
         }
-        
+
         .logo-letters {
             font-size: 24px;
             font-weight: bold;
             letter-spacing: 5px;
         }
-        
+
         .red-letter {
             color: red;
         }
-        
+
         .logo-subtext {
             font-size: 16px;
             color: black;
-            margin-top: 2px; 
-            text-align: left; 
+            margin-top: 2px;
+            text-align: left;
         }
-        
+
         .text-content {
             display: flex;
-            flex-direction: column; 
-            margin-left: 10px; 
+            flex-direction: column;
+            margin-left: 10px;
         }
-        
+
         nav {
             display: flex;
             align-items: center;
             margin-right: 20px;
         }
-        
+
         nav a {
             margin-left: 10px;
             text-decoration: none;
         }
-        
+
         nav button {
             padding: 10px 20px;
             border: none;
@@ -79,7 +78,7 @@
             font-size: 16px;
             border-radius: 5px;
         }
-        
+
         nav ul {
             list-style-type: none;
             margin: 0;
@@ -87,11 +86,11 @@
             display: flex;
             align-items: center;
         }
-        
+
         nav ul li {
             margin-left: 5px;
         }
-        
+
         nav ul li a {
             color: rgb(7, 7, 7);
             text-decoration: none;
@@ -99,18 +98,18 @@
             padding-bottom: 5px;
             transition: color 0.3s;
         }
-        
+
         nav ul li a:hover {
             color: #000000;
         }
-        
-        nav ul li a:focus, 
+
+        nav ul li a:focus,
         nav ul li a:active {
             position: relative;
             outline: none;
         }
-        
-        nav ul li a:focus::after, 
+
+        nav ul li a:focus::after,
         nav ul li a:active::after {
             content: '';
             position: absolute;
@@ -120,13 +119,13 @@
             height: 3px;
             background-color: red;
         }
-        
+
         a[href*="Catalog"] {
             text-decoration: underline;
             text-decoration-color: red;
             text-decoration-thickness: 3px;
         }
-        
+
         .login-btn {
             background-color: #ff3333;
             color: white;
@@ -138,11 +137,11 @@
             border-radius: 5px;
             position: relative;
         }
-        
+
         .login-btn:hover {
             background-color: #e60000;
         }
-        
+
         .logout-btn {
             background-color: #ff3333;
             color: white;
@@ -154,58 +153,57 @@
             border-radius: 5px;
             position: relative;
         }
-        
+
         .logout-btn:hover {
             background-color: #e60000;
         }
-        
-        
+
+
         .welcome {
             position: relative;
-            background-image: url("images/background-home.jpg");
+            background-image: url("% static 'images/home.jpg' %");
             background-size: cover;
             background-position: center;
             height: 650px;
             display: flex;
-            justify-content: flex-end; 
+            justify-content: flex-end;
             align-items: center;
-            padding-right: 50px; 
+            padding-right: 50px;
         }
-        
+
         .welcome-text {
             text-align: right;
             color: rgb(0, 0, 0);
         }
-        
+
         .welcome-text h2 {
             font-size: 60px;
             font-weight: bold;
             text-align: right;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         }
-        
+
         .red-text {
             color: red;
         }
-        
+
         .get-starts-btn {
             margin-top: 20px;
             padding: 10px 20px;
             background-color: #ffffff;
             color: rgb(0, 0, 0);
-            border: 1px solid rgb(0, 0, 0); 
+            border: 1px solid rgb(0, 0, 0);
             cursor: pointer;
             font-size: 18px;
-            border-radius: 50px;  
-            transition: all 0.3s ease;  
+            border-radius: 50px;
+            transition: all 0.3s ease;
         }
-        
+
         .get-starts-btn:hover {
-            background-color: red;  
-            color: white; 
+            background-color: red;
+            color: white;
         }
-          
-    </style>        
+    </style>
 </head>
 
 <body>
@@ -219,21 +217,23 @@
                 <div class="logo-subtext">Facilities</div>
             </div>
         </div>
-        
+
         <nav>
             <ul>
-                <a href="{% url 'home_user' %}"><li><a href="#">HOME</a></li>
-                <a href="{% url 'catalog_user' %}"><li><a href="#">CATALOG</a></li>
-                <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button class="logout-btn">Log out</button>
-                </form>
-                </a>
+                <a href="{% url 'home_user' %}">
+                    <li><a href="#">HOME</a></li>
+                    <a href="{% url 'catalog_user' %}">
+                        <li><a href="#">CATALOG</a></li>
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button class="logout-btn">Log out</button>
+                        </form>
+                    </a>
             </ul>
         </nav>
     </header>
 
-    <section class="welcome" style="background-image: url('{% static 'images/home.jpg' %}')">
+    <section class="welcome">
         <div class="welcome-text">
             <h2>Equipment</h2>
             <h2><span class="red-text">Borrowing</span> System</h2>

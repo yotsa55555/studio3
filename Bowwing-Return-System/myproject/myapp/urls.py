@@ -23,6 +23,8 @@ urlpatterns = [
     path("report_admin/", views.report_admin, name="report_admin"),
     path("history_admin/", views.history_admin, name="history_admin"),
     path("edit_admin/<int:equipment_id>/", views.edit_admin, name="edit_admin"),
+    path("forgot-password/", views.forgot_password, name="forgot_password"),
+    path("reset-password/<str:token>/", views.reset_password, name="reset_password"),
 ]
 
 if settings.DEBUG:
