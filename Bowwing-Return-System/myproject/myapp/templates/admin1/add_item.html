@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add item</title>
+    <link rel="stylesheet" href="{% static 'edit admin.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <button class="close-btn" onclick="window.location.href='{% url 'catalog_admin' %}'">&times;</button>
+        <h1>Add Item</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+        
+            <label for="deviceName">Device Name</label>
+            <input type="text" id="deviceName" name="deviceName" required>
+        
+            <label for="parcelName">Parcel Name</label>
+            <input type="text" id="parcelName" name="parcelName" required>
+        
+            <label for="brand">Brand</label>
+            <input type="text" id="brand" name="brand" required>
+        
+            <label for="status">Status</label>
+            <input type="text" value="available" name="status" required disabled></input>
+        
+            <label for="uploadPhoto">Upload Photo</label>
+            <input type="file" id="uploadPhoto" name="uploadPhoto" accept="image/*">
+        
+            <button type="submit" class="btn save">Add</button>
+        </form>
+    </div>
+</body>
+
+</html>

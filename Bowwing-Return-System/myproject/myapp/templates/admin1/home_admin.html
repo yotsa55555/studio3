@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -210,32 +209,30 @@
 
 <body>
     <header>
-            <div class="logo">
-                <img src="{% static 'images/logo_empty.png' %}" alt="Logo">
-                <div class="text-content">
-                    <span class="logo-letters">B <span class="red-letter">L</span> F</span>
-                    <div class="logo-subtext">Equipment borrowing</div>
-                    <div class="logo-subtext">System for Laboratory</div>
-                    <div class="logo-subtext">Facilities</div>
-                </div>
+        <div class="logo">
+            <img src="{% static 'images/logo_empty.png' %}" alt="Logo">
+            <div class="text-content">
+                <span class="logo-letters">B <span class="red-letter">L</span> F</span>
+                <div class="logo-subtext">Equipment borrowing</div>
+                <div class="logo-subtext">System for Laboratory</div>
+                <div class="logo-subtext">Facilities</div>
             </div>
+        </div>
 
         <nav>
             <ul>
-                <li><a href="{% url 'home_staff' %}">HOME</a></li>
-                <li><a href="{% url 'catalog_staff' %}">CATALOG</a></li>
-                <li><a href="{% url 'approval_staff' %}">APPROVAL</a></li>
-                <li><a href="{% url 'history_staff' %}">HISTORY</a></li>
+                <li><a href="{% url 'home_admin' %}">HOME</a></li>
+                <li><a href="{% url 'catalog_admin' %}">CATALOG</a></li>
+                <li><a href="{% url 'report_admin' %}">REPORT</a></li>
+                <li><a href="{% url 'history_admin' %}">HISTORY</a></li>
                 <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" id="logout-btn" class="logout-btn">Logout</button>
+                    {% csrf_token %}
+                    <button type="submit" id="logout-btn" class="logout-btn">Logout</button>
                 </form>
-        
             </ul>
         </nav>
     </header>
 
-   
     <section class="welcome" style="background-image: url('{% static 'images/home.jpg' %}')">
         <div class="welcome-text">
             <h2>Equipment</h2>

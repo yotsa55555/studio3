@@ -61,69 +61,75 @@
                 </tr>
             </thead>
             <tbody>
-                {% for equipment in all_equipment %}
-                <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
-                    <td><img src="{{ equipment.image.url }}" alt="{{ equipment.name }}"></td>
-                    <td>{{ equipment.name }}</td>
-                    <td>{{ equipment.parcel_id }}</td>
-                    <td>{{ equipment.brand }}</td>
-                    <td>
-                        {% if equipment.date_borrow %}
-                        {{ equipment.date_borrow|date:"d-m-Y" }}
-                        {% else %}
-                        -
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if equipment.date_return %}
-                        {{ equipment.date_return|date:"d-m-Y" }}
-                        {% else %}
-                        -
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if equipment.borrower %}
-                        {{ equipment.borrower.fullname }}
-                        {% else %}
-                        -
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if equipment.borrower %}
-                        {{ equipment.borrower.phone|slice:":3" }} {{ equipment.borrower.phone|slice:"3:6" }} {{
-                        equipment.borrower.phone|slice:"6:" }}
-                        {% else %}
-                        -
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if equipment.borrower %}
-                        {{ equipment.borrower.student_id_edu|slice:":-1" }}-{{
-                        equipment.borrower.student_id_edu|slice:"-1:" }}
-                        {% else %}
-                        -
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if equipment.borrower %}
-                        {{ equipment.borrower.major }}
-                        {% else %}
-                        -
-                        {% endif %}
-                    </td>
-                    <td>Return</td>
-                    <td>
-                        {% if equipment.status %}
-                        <span class="status unavailable">Unavailable</span>
+                {% if not equipment %}
+                    <tr>
+                        <td colspan="8" style="text-align: center;">No data</td>
+                    </tr>
+                {% else %}
+                    {% for equipment in all_equipment %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><img src="{{ equipment.image.url }}" alt="{{ equipment.name }}"></td>
+                        <td>{{ equipment.name }}</td>
+                        <td>{{ equipment.parcel_id }}</td>
+                        <td>{{ equipment.brand }}</td>
+                        <td>
+                            {% if equipment.date_borrow %}
+                            {{ equipment.date_borrow|date:"d-m-Y" }}
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if equipment.date_return %}
+                            {{ equipment.date_return|date:"d-m-Y" }}
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if equipment.borrower %}
+                            {{ equipment.borrower.fullname }}
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if equipment.borrower %}
+                            {{ equipment.borrower.phone|slice:":3" }} {{ equipment.borrower.phone|slice:"3:6" }} {{
+                            equipment.borrower.phone|slice:"6:" }}
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if equipment.borrower %}
+                            {{ equipment.borrower.student_id_edu|slice:":-1" }}-{{
+                            equipment.borrower.student_id_edu|slice:"-1:" }}
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if equipment.borrower %}
+                            {{ equipment.borrower.major }}
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+                        <td>Return</td>
+                        <td>
+                            {% if equipment.status %}
+                            <span class="status unavailable">Unavailable</span>
 
-                        {% else %}
-                        <span class="status available">Available</span>
+                            {% else %}
+                            <span class="status available">Available</span>
 
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
             </tbody>
         </table>
         </table>

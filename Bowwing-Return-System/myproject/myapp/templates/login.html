@@ -14,11 +14,17 @@
     <input type="checkbox" id="check">
     <div class="login form">
       <header>Login</header>
-      <form action="" method="post">
+      <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
+<<<<<<< HEAD
         <input type="text" name="kkumail" placeholder="Enter your email">
         <input type="password" name="password" placeholder="Enter your password">
         <a href="{% url 'forgot_password' %}">Forgot password?</a>
+=======
+        <input type="text" name="email" placeholder="Enter your email" required>
+        <input type="password" name="password" placeholder="Enter your password" required>
+        <a href="#">Forgot password?</a>
+>>>>>>> 4d37d50192df075348887d69b36444bd3702e540
         {% if messages %}
           {% for message in messages %}
             <div class="alert alert-danger" role="alert">

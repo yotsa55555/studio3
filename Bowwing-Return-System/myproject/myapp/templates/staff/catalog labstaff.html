@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+{% extends 'staff/base.html' %}
+{% load static %}
+
+{% block static %}<link rel="stylesheet" href="{% static 'labstaff_catalog.css' %}">{% endblock %}
+{% block title %}Catalog for Borrowing{% endblock %}
+=======
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +41,9 @@
             </ul>
         </nav>
     </header>
+>>>>>>> 87eb2c427422fc51205a18840b27d4d69e75be94
 
+{% block content %} 
     <div class="container">
         <h1>Catalog for Lab Staff</h1>
         <header>
@@ -48,11 +57,17 @@
                     {% csrf_token %}
                     <span>Status: </span>
                     <select id="status-dropdown" name="filter" onchange="this.form.submit();">
+<<<<<<< HEAD
+                        <option value="">All</option>
+                        <option value="Available" {% if selected_status == 'Available' %}selected{% endif %}>Available</option>
+                        <option value="Unavailable" {% if selected_status == 'Unavailable' %}selected{% endif %}>Unavailable</option>
+=======
                         {% for status in all_status %}
                             <option value="{{ status.name }}">
                                 {{ status.name }}
                             </option>
                         {% endfor %}
+>>>>>>> 87eb2c427422fc51205a18840b27d4d69e75be94
                     </select>
                 </form>
                 </select>
@@ -127,12 +142,29 @@
                             -
                             {% endif %}
                         </td>
+<<<<<<< HEAD
+                        <td>
+                            {% if equipment.status %}
+                                <form action="{% url 'return_item' equipment.equipment_id %}" method="post">
+                                    {% csrf_token %}
+                                    <button id="request-button" type="submit">Return</button>
+                                </form>
+                            {% else %}
+                                <button id="disabled-button" type="submit" disabled>Return</button>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if equipment.status %}
+                                <span class="status unavailable">Unavailable</span>
+                                {% else %}
+=======
                         <td>Return</td>
                         <td>
                             {% if equipment.status %}
                                 <span class="status unavailable">Unavailable</span>
 
                             {% else %}
+>>>>>>> 87eb2c427422fc51205a18840b27d4d69e75be94
                                 <span class="status available">Available</span>
                             
                             {% endif %}
@@ -140,8 +172,19 @@
                     </tr>
                 {% endfor %}
             </tbody>
+<<<<<<< HEAD
+            <script>
+                function navigateToBorrow(equiment_id) {
+                    window.location.href = '/user_borrowing/' + equiment_id ;
+                }
+            </script>
+        </table>
+    </div>
+{% endblock %}
+=======
         </table>
       </table>
     </div>
 </body>
 </html>
+>>>>>>> 87eb2c427422fc51205a18840b27d4d69e75be94

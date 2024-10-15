@@ -30,95 +30,41 @@
         <table>
             <thead>
                 <tr>
-                    <th>List Item</th>
-                    <th>Parcel Number</th>
-                    <th>Borrower's Name</th>
-                    <th>Date Borrow</th>
-                    <th>Date Return</th>
-                    <th>Phone Number</th>
-                    <th>Approval</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Equipment</th>
+                    <th scope="col">Parcel ID</th>
+                    <th scope="col">Borrower</th>
+                    <th scope="col">Tel.</th>
+                    <th scope="col">Date Borrow</th>
+                    <th scope="col">Date Return</th>
+                    <th scope="col">Approval</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Example row -->
-                <tr>
-                    <td>Item 1</td>
-                    <td>12345</td>
-                    <td>John Doe</td>
-                    <td>2024-08-30</td>
-                    <td>2024-09-05</td>
-                    <td>012-345-6789</td>
-                    <td>
-                        <button class="btn edit">Agree</button>
-                        <button class="btn delete">Disagree</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Item 2</td>
-                    <td>12345</td>
-                    <td>John Doe</td>
-                    <td>2024-08-30</td>
-                    <td>2024-09-05</td>
-                    <td>012-345-6789</td>
-                    <td>
-                        <button class="btn edit">Agree</button>
-                        <button class="btn delete">Disagree</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Item 3</td>
-                    <td>12345</td>
-                    <td>John Doe</td>
-                    <td>2024-08-30</td>
-                    <td>2024-09-05</td>
-                    <td>012-345-6789</td>
-                    <td>
-                        <button class="btn edit">Agree</button>
-                        <button class="btn delete">Disagree</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Item 4</td>
-                    <td>12345</td>
-                    <td>John Doe</td>
-                    <td>2024-08-30</td>
-                    <td>2024-09-05</td>
-                    <td>012-345-6789</td>
-                    <td>
-                        <button class="btn edit">Agree</button>
-                        <button class="btn delete">Disagree</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Item 5</td>
-                    <td>12345</td>
-                    <td>John Doe</td>
-                    <td>2024-08-30</td>
-                    <td>2024-09-05</td>
-                    <td>012-345-6789</td>
-                    <td>
-                        <button class="btn edit">Agree</button>
-                        <button class="btn delete">Disagree</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Item 6</td>
-                    <td>12345</td>
-                    <td>John Doe</td>
-                    <td>2024-08-30</td>
-                    <td>2024-09-05</td>
-                    <td>012-345-6789</td>
-                    <td>
-                        <button class="btn edit">Agree</button>
-                        <button class="btn delete">Disagree</button>
-                    </td>
-                </tr>
-                <!-- Additional rows go here -->
+                {% if not all_borrow %}
+                    <tr>
+                        <td colspan="8" style="text-align: center;">No data</td>
+                    </tr>
+                {% else %}
+                    {% for borrow in all_borrow %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ borrow.equipment.name }}</td>
+                            <td>{{ borrow.equipment.parcel_id }}</td>
+                            <td>{{ borrow.borrower.fullname }}</td>
+                            <td>{{ borrow.borrower.phone }}</td>
+                            <td>{{ borrow.borrowed_on|date:"d-m-Y" }}</td>
+                            <td>{{ borrow.returned_on|date:"d-m-Y" }}</td>
+                            <td>
+                                <form action="{% url 'borrow_pass' borrow.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="btn edit" type="submit" name="action" value="agree">Agree</button>
+                                    <button class="btn delete" type="submit" name="action" value="disagree">Disagree</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
             </tbody>
         </table>
     </div>

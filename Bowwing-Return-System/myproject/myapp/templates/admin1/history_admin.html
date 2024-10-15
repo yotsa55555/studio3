@@ -1,26 +1,13 @@
+{% extends 'admin1/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Borrowing Status</title>
-    <link rel="stylesheet" href="{% static 'borrowing status.css' %}">
+{% block static %}
+<link rel="stylesheet" href="{% static 'borrowing status.css' %}">
+{% endblock %}
+{% block title %}Borrowing Status{% endblock %}
 
-</head>
-
-<body>
-    <div class="container">
-        <a href="{% url 'home_admin' %}" class="edit-btn">HOME</a>
-        <a href="{% url 'catalog_admin' %}" class="edit-btn">CATALOG</a>
-        <a href="{% url 'report_admin' %}" class="edit-btn">REPORT</a>
-        <a href="{% url 'history_admin' %}" class="edit-btn">HISTORY</a>
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" id="logout-btn" class="edit-btn">Logout</button>
-        </form>
-
+{% block content %}
+    <div class="container" style="margin: 30px 10vw;">
         <h1>HISTORY</h1>
         <table>
             <thead>
@@ -83,6 +70,4 @@
             </tbody>
         </table>
     </div>
-</body>
-
-</html>
+{% endblock %}

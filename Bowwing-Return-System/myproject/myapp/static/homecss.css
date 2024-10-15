@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+.welcome {
+    position: relative;
+    background-image: url('https://media.cntraveler.com/photos/57211a96fe5fd76f60bc2764/16:9/w_2580,c_limit/deserts-Sahara-cr-GettyImages-74732427.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 650px;
+    width: 400;
+=======
 body {
     background-image: url("{% static 'images/background-home.jpg' %}"); 
     background-size: cover;
@@ -73,6 +82,7 @@ nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+>>>>>>> 87eb2c427422fc51205a18840b27d4d69e75be94
     display: flex;
     align-items: center;
 }
