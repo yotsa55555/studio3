@@ -42,7 +42,8 @@
             <div class="header-left">
                 <form action="" method="get">
                     <input type="text" placeholder="Search by borrower's name..." id="search-bar" name="q"
-                        value="{{ request.GET.q|default_if_none:'' }}" onkeydown="if(event.key === 'Enter'){ this.form.submit(); }">
+                        value="{{ request.GET.q|default_if_none:'' }}"
+                        onkeydown="if(event.key === 'Enter'){ this.form.submit(); }">
                 </form>
             </div>
         </header>
