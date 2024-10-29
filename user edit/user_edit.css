@@ -1,0 +1,138 @@
+/* user_edit.css */
+
+/* Reset and Base Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Profile Container Styling */
+.profile-container {
+    display: flex;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 900px;
+}
+
+/* Profile Card */
+.profile-card {
+    background-color: #f8f9fa;
+    width: 45%;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.profile-card .profile-image img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Profile Edit Label */
+.edit-label {
+    font-size: 20px; /* ปรับขนาดตัวอักษรเป็น 20px */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px; /* เพิ่มระยะห่างด้านล่างเพื่อให้เว้นจากรูปภาพ */
+}
+.edit-icon {
+    position: absolute;
+    top: 40%;
+    left: calc(55% + 10%); /* เลื่อนไอคอนไปทางขวาของรูปภาพ พร้อมระยะห่าง */
+    transform: translateY(-50%);
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.edit-icon:hover {
+    color: #0056b3;
+}
+
+.profile-card h2 {
+    font-size: 20px;
+    color: #333;
+}
+
+.profile-info {
+    display: grid;
+    text-align: left;
+    grid-template-columns: auto 1fr;
+    row-gap: 15px;
+    column-gap: 20px;
+    padding: 25px;
+    padding-top: 20px;
+}
+
+.profile-info .label {
+    font-weight: bold;
+    color: #333;
+}
+
+.profile-info .value {
+    color: #555;
+}
+
+/* Profile Form */
+.profile-form {
+    width: 60%;
+    padding: 40px; /* ปรับขนาด padding เพื่อขยายขอบนอก */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-form label {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+}
+
+.profile-form input {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.profile-form input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.profile-form button {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.profile-form button:hover {
+    background-color: #0056b3;
+}
