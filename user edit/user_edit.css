@@ -21,7 +21,7 @@ body {
     display: flex;
     background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(255, 151, 151, 0.1);
     overflow: hidden;
     width: 900px;
 }
@@ -52,16 +52,16 @@ body {
 }
 .edit-icon {
     position: absolute;
-    top: 40%;
-    left: calc(55% + 10%); /* เลื่อนไอคอนไปทางขวาของรูปภาพ พร้อมระยะห่าง */
+    top: 5%;
+    left: calc(80% + 10%); /* เลื่อนไอคอนไปทางขวาของรูปภาพ พร้อมระยะห่าง */
     transform: translateY(-50%);
-    color: #007bff;
+    color: #eb1616;
     cursor: pointer;
     text-decoration: none;
 }
 
 .edit-icon:hover {
-    color: #0056b3;
+    color: #ac0000;
 }
 
 .profile-card h2 {
@@ -73,7 +73,7 @@ body {
     display: grid;
     text-align: left;
     grid-template-columns: auto 1fr;
-    row-gap: 15px;
+    row-gap: 10px;
     column-gap: 20px;
     padding: 25px;
     padding-top: 20px;
@@ -118,7 +118,7 @@ body {
 }
 
 .profile-form input:focus {
-    border-color: #007bff;
+    border-color: #eb1616;
     outline: none;
 }
 
@@ -126,7 +126,7 @@ body {
     padding: 10px 20px;
     font-size: 14px;
     color: #fff;
-    background-color: #007bff;
+    background-color: #eb1616;
     border: none;
     border-radius: 4px;
     margin-top: 15px;
@@ -134,5 +134,5 @@ body {
 }
 
 .profile-form button:hover {
-    background-color: #0056b3;
+    background-color: #b30000;
 }
